@@ -15,10 +15,13 @@ using namespace sf;
 class StandingState
         : public PlayerState{
 public:
-    float movementSpeed = 5.f;
+    float movementSpeed = 4.f;
 
-    PlayerState* handleInput(Player& pl);
+    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px);
     void enter(Player& pl);
+
+    bool checkCollision(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
+
 };
 
 

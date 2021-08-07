@@ -39,14 +39,13 @@ public:
     virtual ~Player();
 
     void updateWindowBoundsCollision(const RenderTarget* target);
-    void updateObjectsCollision(vector <int> map, int mapWidth, int mapHeight, int px);
 
     void setGraphics(Texture texture);
 
     void update(const RenderTarget* target, vector <int> map, int mapWidth, int mapHeight, int px);
     void render(RenderWindow* window);
 
-    virtual void handleInput();
+    virtual void handleInput(vector <int> map, int mapWidth, int mapHeight, int px);
 
     void consumeEnergy();
 

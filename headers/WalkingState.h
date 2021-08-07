@@ -17,7 +17,7 @@ class WalkingState
         : public PlayerState{
 public:
     float movementSpeed = 5.f;
-    PlayerState* handleInput(Player& pl);
+    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px);
     virtual void enter(Player& pl);
 };
 

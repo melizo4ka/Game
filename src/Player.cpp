@@ -24,7 +24,7 @@ void Player::initGraphics(int x, int y) {
     walkingTexture.loadFromFile("assets/walking.png");
 
     sprite.setTexture(standingTexture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+    sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
     sprite.setPosition(x, y);
 }
 
@@ -49,70 +49,23 @@ void Player::updateWindowBoundsCollision(const RenderTarget *target) {
         this->sprite.setPosition(playerBounds.left, target->getSize().y - playerBounds.height);
 }
 
-
-void Player::updateObjectsCollision(vector <int> map, int mapWidth, int mapHeight, int px) {
-    FloatRect playerBounds = this->sprite.getGlobalBounds();
-    int objBoundsTop;
-    int objBoundsLeft;
-    int objBoundsHeight = px;
-    int objBoundsWidth = px;
-
-    int i = 0;
-    for (int n : map) {
-        i++;
-        if(n == 1 || n == 3 || n == 4) {
-            objBoundsTop = (i % ( mapHeight + 1 )) * 64;
-            objBoundsLeft = (i / ( mapHeight )) * 64;
-            //left collision (left of the player)
-            if (playerBounds.left < objBoundsLeft + objBoundsWidth &&
-                (playerBounds.top > objBoundsTop && playerBounds.top < objBoundsTop + objBoundsHeight) &&
-                (Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left)))
-                this->sprite.setPosition(objBoundsLeft + objBoundsWidth, playerBounds.top);
-
-            //right collision
-            if (playerBounds.left + playerBounds.width > objBoundsLeft &&
-                (playerBounds.top > objBoundsTop && playerBounds.top < objBoundsTop + objBoundsHeight) &&
-                (Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right)))
-                this->sprite.setPosition(objBoundsLeft - playerBounds.width, playerBounds.top);
-
-            //bottom collision
-            if (playerBounds.top + playerBounds.height > objBoundsTop &&
-                (playerBounds.left > objBoundsLeft && playerBounds.left < objBoundsLeft + objBoundsHeight) &&
-                (Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::Down)))
-                this->sprite.setPosition(playerBounds.left, objBoundsTop - playerBounds.height);
-
-            //top collision
-            if (playerBounds.top < objBoundsTop + objBoundsHeight &&
-                (playerBounds.left > objBoundsLeft && playerBounds.left < objBoundsLeft + objBoundsWidth) &&
-                (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up)))
-                this->sprite.setPosition(playerBounds.left, objBoundsTop + objBoundsHeight);
-        }
-    }
-    i = 0;
-
-}
-
-
 void Player::setGraphics(Texture texture) {
     sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+    sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
 }
 
 void Player::update(const RenderTarget* target, vector <int> map, int mapWidth, int mapHeight, int px) {
-    this->handleInput();
+    this->handleInput(map, mapWidth, mapHeight, px);
     //window collision detection
     this->updateWindowBoundsCollision(target);
-
-    //objects collision detection
-    this->updateObjectsCollision(map, mapWidth, mapHeight, px);
 }
 
 void Player::render(RenderWindow* window) {
     window->draw(sprite);
 }
 
-void Player::handleInput() {
-    PlayerState* state = state_->handleInput(*this);
+void Player::handleInput(vector <int> map, int mapWidth, int mapHeight, int px) {
+    PlayerState* state = state_->handleInput(*this, map, mapWidth, mapHeight, px);
     if (state != NULL)
     {
         delete state_;
