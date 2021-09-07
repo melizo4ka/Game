@@ -34,10 +34,8 @@
 // Mock.  They are subject to change without notice, so please DO NOT
 // USE THEM IN USER CODE.
 
-// GOOGLETEST_CM0002 DO NOT DELETE
-
-#ifndef GOOGLETEST_GOOGLEMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
-#define GOOGLETEST_GOOGLEMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
+#ifndef GOOGLEMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
+#define GOOGLEMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
 
 #include <stdio.h>
 #include <ostream>  // NOLINT
@@ -281,7 +279,7 @@ class WithoutMatchers {
 GTEST_API_ WithoutMatchers GetWithoutMatchers();
 
 // Disable MSVC warnings for infinite recursion, since in this case the
-// the recursion is unreachable.
+// recursion is unreachable.
 #ifdef _MSC_VER
 # pragma warning(push)
 # pragma warning(disable:4717)
@@ -449,6 +447,8 @@ struct Function<R(Args...)> {
 template <typename R, typename... Args>
 constexpr size_t Function<R(Args...)>::ArgumentCount;
 
+bool Base64Unescape(const std::string& encoded, std::string* decoded);
+
 #ifdef _MSC_VER
 # pragma warning(pop)
 #endif
@@ -456,4 +456,4 @@ constexpr size_t Function<R(Args...)>::ArgumentCount;
 }  // namespace internal
 }  // namespace testing
 
-#endif  // GOOGLETEST_GOOGLEMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
+#endif  // GOOGLEMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_

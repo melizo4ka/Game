@@ -1,3 +1,4 @@
+#include <memory>
 #include "Engine.h"
 
 void Engine::initVariables(unsigned WindowWidth, unsigned WindowHeight) {
@@ -64,12 +65,12 @@ void Engine::getMap(const int gameMap[], unsigned int width, unsigned int height
                 map.push_back(0);
             }
         }
-
 }
 
 const bool Engine::running() const {
     return this->window->isOpen();
 }
+
 void Engine::pollEvents(){
     while(this->window->pollEvent(this->sfmlEvent)){
         switch (this->sfmlEvent.type){
@@ -90,34 +91,34 @@ void Engine::pollEvents(){
             case Event::MouseButtonPressed:
                 if(Mouse::isButtonPressed(Mouse::Left)){
                     Vector2i position = Mouse::getPosition(*window);
-                    //ASK WINDOW ABOUT THE SIZE AND ITS POSITION
+                    int squareClicked = map[(position.x / pixels) * mapHeight + (position.y / pixels)];
                     //POND use
-                    /*if ((position.x < 200) && (position.y < 50)){
-                        int p = pond.fishRandom();
-                        printf("You clicked on pond");
+                    if (squareClicked == 1){
+                        printf("You clicked on pond \n");
+                        /*int p = pond.fishRandom();
                         if (1 < p & p < 5){
                             //put Herring into inventory
-                            unique_ptr<Fish> herring(new Fish(0.9, 100));
+                            shared_ptr<Fish> herring(new Fish(0.9, 100));
                             inventory.putItem(*herring);
                         }
                         else if (p == 1){
                             //put Salmon into inventory
-                            unique_ptr<Fish> salmon(new Fish(0.1, 500));
+                            shared_ptr<Fish> salmon(new Fish(0.1, 500));
                             inventory.putItem(*salmon);
-                        }
+                        }*/
                         player.consumeEnergy();
                     }
                     //HOUSE use
-                    else if((position.x > 500) && (position.x < 550) && (position.y < 50)){
-                        printf("You clicked on house");
+                    else if(squareClicked == 6){
+                        printf("You clicked on house \n");
                     //add day
                         //restore energy
                     }
                     //SHOP use
-                    else if((position.x > 300) & (position.x < 350) & (position.y < 50)){
-                        printf("You clicked on shop");
+                    else if(squareClicked == 5){
+                        printf("You clicked on shop \n");
                         //add menu for shopping
-                    }*/
+                    }
                 }
                 break;
         }
@@ -126,19 +127,15 @@ void Engine::pollEvents(){
 
 void Engine::update() {
     this->pollEvents();
-
     this->player.update(this->window, this->map, this->mapWidth, this->mapHeight, this->pixels);
-
 }
 
 void Engine::render(TileMap map) {
     this->window->clear();
 
     this->window->draw(map);
-
     //new render
     this->player.render(this->window);
-
     this->window->display();
 }
 //functions

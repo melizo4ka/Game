@@ -1,14 +1,14 @@
 #include "WalkingState.h"
 
 PlayerState* WalkingState::handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px) {
-    if (!Keyboard::isKeyPressed(Keyboard::A)||!Keyboard::isKeyPressed(Keyboard::Left)||
+    /*if(){}
+    else */if (!Keyboard::isKeyPressed(Keyboard::A)||!Keyboard::isKeyPressed(Keyboard::Left)||
         !Keyboard::isKeyPressed(Keyboard::W)||!Keyboard::isKeyPressed(Keyboard::Up)||
         !Keyboard::isKeyPressed(Keyboard::D)||!Keyboard::isKeyPressed(Keyboard::Right)||
         !Keyboard::isKeyPressed(Keyboard::S)||!Keyboard::isKeyPressed(Keyboard::Down))
     {
         return new StandingState();
     }
-
 }
 
 void WalkingState::enter(Player& pl)

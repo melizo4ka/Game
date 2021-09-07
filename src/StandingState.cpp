@@ -1,3 +1,5 @@
+#include <ShoppingState.h>
+#include <FishingState.h>
 #include "StandingState.h"
 
 PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWidth, int mapHeight, int px) {
@@ -35,8 +37,12 @@ PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWid
             }
         return new WalkingState();
     }
-    //add Standing-->Shopping
-    //add Standing-->Fishing
+    /*else if(){
+        return new ShoppingState();
+    }
+    else if(){
+        return new FishingState();
+    }*/
 }
 
 void StandingState::enter(Player& pl) {

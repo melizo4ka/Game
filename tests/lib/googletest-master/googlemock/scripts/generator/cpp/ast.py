@@ -333,14 +333,11 @@ class Class(_GenericDeclaration):
     return not self.IsDeclaration()
 
   def Requires(self, node):
-    # TODO(nnorwitz): handle namespaces, etc.
     if self.bases:
       for token_list in self.bases:
-        # TODO(nnorwitz): bases are tokens, do name comparision.
         for token in token_list:
           if token.name == node.name:
             return True
-    # TODO(nnorwitz): search in body too.
     return False
 
   def __str__(self):
@@ -379,15 +376,12 @@ class Function(_GenericDeclaration):
 
   def Requires(self, node):
     if self.parameters:
-      # TODO(nnorwitz): parameters are tokens, do name comparision.
       for p in self.parameters:
         if p.name == node.name:
           return True
-    # TODO(nnorwitz): search in body too.
     return False
 
   def __str__(self):
-    # TODO(nnorwitz): add templated_types.
     suffix = ('%s %s(%s), 0x%02x, %s' %
               (self.return_type, self.name, self.parameters,
                self.modifiers, self.body))
@@ -895,7 +889,7 @@ class AstBuilder(object):
         nesting -= 1
     return tokens, last_token
 
-  # TODO(nnorwitz): remove _IgnoreUpTo() it shouldn't be necesary.
+  # TODO(nnorwitz): remove _IgnoreUpTo() it shouldn't be necessary.
   def _IgnoreUpTo(self, token_type, token):
     unused_tokens = self._GetTokensUpTo(token_type, token)
 
