@@ -3,10 +3,12 @@
 
 #include "Player.h"
 
-enum ItemTypes {IT_DEFAULT = 0, IT_FISH, IT_PLANT};
+enum ItemTypes {IT_DEFAULT = 0, IT_FISH, IT_PLANT}; //class enum senza short unsigned
 
 class Item
 {
+
+    //cost
 private:
     void initVariables();
 

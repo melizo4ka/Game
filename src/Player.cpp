@@ -54,25 +54,65 @@ void Player::setGraphics(Texture texture) {
     sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
 }
 
-void Player::update(const RenderTarget* target, vector <int> map, int mapWidth, int mapHeight, int px) {
+void Player::update(const RenderWindow* target, vector <int> map, int mapWidth, int mapHeight, int px) {
     this->handleInput(map, mapWidth, mapHeight, px);
+
     //window collision detection
     this->updateWindowBoundsCollision(target);
+    int clickedSquare = this->getClick(map, mapWidth, mapHeight, px, target);
 }
 
 void Player::render(RenderWindow* window) {
     window->draw(sprite);
+
 }
 
 void Player::handleInput(vector <int> map, int mapWidth, int mapHeight, int px) {
-    PlayerState* state = state_->handleInput(*this, map, mapWidth, mapHeight, px);
-    if (state != NULL)
+    Keyboard::Key key = this->getInput();
+    PlayerState* state = state_->handleInput(*this, map, mapWidth, mapHeight, px, key);
+    if (state != nullptr)
     {
         delete state_;
         state_ = state;
 
         // Call the enter action on the new state.
         state_->enter(*this);
+    }
+}
+
+Keyboard::Key Player::getInput() {
+    if (sf::Keyboard::isKeyPressed(Keyboard::A) || sf::Keyboard::isKeyPressed(Keyboard::Left)){
+            return Keyboard::Key::A;
+        }
+    else if(sf::Keyboard::isKeyPressed(Keyboard::W) || sf::Keyboard::isKeyPressed(Keyboard::Up)){
+            return Keyboard::Key::W;
+        }
+    else if(sf::Keyboard::isKeyPressed(Keyboard::D) || sf::Keyboard::isKeyPressed(Keyboard::Right)){
+            return Keyboard::Key::D;
+        }
+    else if(sf::Keyboard::isKeyPressed(Keyboard::S) || sf::Keyboard::isKeyPressed(Keyboard::Down)){
+            return Keyboard::Key::S;
+        }
+    else {
+        return Keyboard::Key::Unknown;
+    }
+}
+
+int Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window) {
+    //CLICKING on objects
+    if(Mouse::isButtonPressed(Mouse::Left)){
+        Vector2i position = sf::Mouse::getPosition(*window);
+        int squareClicked = map[(position.x / px) * mapHeight + (position.y / px)];
+        //POND use
+        if (squareClicked == 1){
+        }
+        //blank ground
+        else if (squareClicked == 2){
+        }
+        //harvest
+        else if (squareClicked == 10){
+        }
+        consumeEnergy();
     }
 }
 

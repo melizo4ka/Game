@@ -86,41 +86,6 @@ void Engine::pollEvents(){
                 else if(this->sfmlEvent.key.code == Keyboard::I)
                     this->inventory->render();*/
                 break;
-
-            //CLICKING on objects
-            case Event::MouseButtonPressed:
-                if(Mouse::isButtonPressed(Mouse::Left)){
-                    Vector2i position = Mouse::getPosition(*window);
-                    int squareClicked = map[(position.x / pixels) * mapHeight + (position.y / pixels)];
-                    //POND use
-                    if (squareClicked == 1){
-                        printf("You clicked on pond \n");
-                        /*int p = pond.fishRandom();
-                        if (1 < p & p < 5){
-                            //put Herring into inventory
-                            shared_ptr<Fish> herring(new Fish(0.9, 100));
-                            inventory.putItem(*herring);
-                        }
-                        else if (p == 1){
-                            //put Salmon into inventory
-                            shared_ptr<Fish> salmon(new Fish(0.1, 500));
-                            inventory.putItem(*salmon);
-                        }*/
-                        player.consumeEnergy();
-                    }
-                    //HOUSE use
-                    else if(squareClicked == 6){
-                        printf("You clicked on house \n");
-                    //add day
-                        //restore energy
-                    }
-                    //SHOP use
-                    else if(squareClicked == 5){
-                        printf("You clicked on shop \n");
-                        //add menu for shopping
-                    }
-                }
-                break;
         }
     }
 }

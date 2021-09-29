@@ -23,8 +23,6 @@ private:
     int money;
     int energy;
 
-    PlayerState* state_;
-
     void initVariables();
     void initGraphics(int x, int y);
     void setName();
@@ -42,13 +40,15 @@ public:
 
     void setGraphics(Texture texture);
 
-    void update(const RenderTarget* target, vector <int> map, int mapWidth, int mapHeight, int px);
+    void update(const RenderWindow* target, vector <int> map, int mapWidth, int mapHeight, int px);
     void render(RenderWindow* window);
-
     virtual void handleInput(vector <int> map, int mapWidth, int mapHeight, int px);
+    Keyboard::Key getInput();
+    int getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window);
 
     void consumeEnergy();
 
+    PlayerState* state_;
 };
 
 
