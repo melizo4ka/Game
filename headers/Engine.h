@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Fish.h"
 #include "TileMap.h"
+#include "Menu.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -20,6 +21,7 @@
 #include <cctype>
 #include <string>
 #include <vector>
+#include <sstream>
 using namespace sf;
 using namespace std;
 
@@ -50,6 +52,7 @@ public:
 
     RenderWindow* window;
 
+    int* readMapFile(int level[]);
     void getMap(const int gameMap[], unsigned int width, unsigned int height, int pixels);
 
     //functions
@@ -58,6 +61,7 @@ public:
 
     void update();
     void render(TileMap);
+    void showText();
 
 };
 

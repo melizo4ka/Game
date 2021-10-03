@@ -16,30 +16,24 @@ using namespace std;
 
 class Player {
 private:
-    //Inventory items;
-
-
-    string namePlayer;
-    int money;
-    int energy;
-
     void initVariables();
     void initGraphics(int x, int y);
     void setName();
 
 public:
+    string namePlayer;
+    int money;
+    int energy;
+    int day;
     Sprite sprite;
     Texture standingTexture;
-    Texture walkingTexture;
+    PlayerState* state_;
 
-    //constructor and destructor
+
     Player(int x = 128, int y = 128);
     virtual ~Player();
 
     void updateWindowBoundsCollision(const RenderTarget* target);
-
-    void setGraphics(Texture texture);
-
     void update(const RenderWindow* target, vector <int> map, int mapWidth, int mapHeight, int px);
     void render(RenderWindow* window);
     virtual void handleInput(vector <int> map, int mapWidth, int mapHeight, int px);
@@ -48,7 +42,6 @@ public:
 
     void consumeEnergy();
 
-    PlayerState* state_;
 };
 
 

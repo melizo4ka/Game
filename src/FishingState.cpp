@@ -13,11 +13,7 @@ PlayerState* FishingState::handleInput(Player& pl, vector <int> map, int mapWidt
         shared_ptr<Fish> salmon(new Fish(0.1, 500));
         inventory.putItem(*salmon);
     }*/
-
-    /*if()
-    {
         return new StandingState();
-    }*/
 }
 
 void FishingState::enter(Player& pl)

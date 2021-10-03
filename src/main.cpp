@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "TileMap.h"
 #include "Menu.h"
+#include <fstream>
 
 int main() {
 
@@ -24,14 +25,12 @@ int main() {
                         case sf::Keyboard::Return:
                             switch(menu.getPressedItem()){
                                 case 1:
-                                    cout << "load game pressed" << endl;
                                     // load from file
                                     break;
                                     case 2:
                                         window.close();
                                         break;
                                 case 0:
-                                    cout << "new game pressed" << endl;
                                     window.close();
                                     //initialize game
                                     Engine engine;
@@ -40,18 +39,10 @@ int main() {
 
                                     //game loop
                                     while(engine.running()){
-                                        const int level[] =
-                                                {
-                                                1, 1, 1, 1, 1, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0,
-                                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0,
-                                                0, 0, 0, 0, 0, 4, 3, 3, 3, 0, 0, 3, 6, 3, 0, 0,
-                                                4, 0, 0, 0, 0, 0, 3, 5, 3, 0, 0, 0, 0, 0, 4, 0,
-                                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0,
-                                                2, 2, 2, 2, 2, 2, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4,
-                                                2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0,
-                                                2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                                };
+                                        int array[128];
+                                        int *level = engine.readMapFile(array);
 
+                                        //const int* level;
                                         TileMap map;
                                         if (!map.load("assets/tileset.png", sf::Vector2u(32, 32), level, 16, 8))
                                             return -1;

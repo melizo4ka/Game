@@ -17,11 +17,11 @@ void Player::initVariables() {
     this->setName();
     this->money = 1000;
     this->energy = 50;
+    this->day = 1;
 }
 
 void Player::initGraphics(int x, int y) {
     standingTexture.loadFromFile("assets/standing.png");
-    walkingTexture.loadFromFile("assets/walking.png");
 
     sprite.setTexture(standingTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
@@ -49,16 +49,13 @@ void Player::updateWindowBoundsCollision(const RenderTarget *target) {
         this->sprite.setPosition(playerBounds.left, target->getSize().y - playerBounds.height);
 }
 
-void Player::setGraphics(Texture texture) {
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
-}
-
 void Player::update(const RenderWindow* target, vector <int> map, int mapWidth, int mapHeight, int px) {
     this->handleInput(map, mapWidth, mapHeight, px);
 
     //window collision detection
     this->updateWindowBoundsCollision(target);
+
+
     int clickedSquare = this->getClick(map, mapWidth, mapHeight, px, target);
 }
 
@@ -103,7 +100,7 @@ int Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, cons
     if(Mouse::isButtonPressed(Mouse::Left)){
         Vector2i position = sf::Mouse::getPosition(*window);
         int squareClicked = map[(position.x / px) * mapHeight + (position.y / px)];
-        //POND use
+        //pond
         if (squareClicked == 1){
         }
         //blank ground
@@ -111,6 +108,12 @@ int Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, cons
         }
         //harvest
         else if (squareClicked == 10){
+        }
+        //shop
+        else if (squareClicked == 5){
+        }
+        //house
+        else if (squareClicked == 6){
         }
         consumeEnergy();
     }

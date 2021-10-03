@@ -23,6 +23,28 @@ Engine::~Engine(){
     delete this->window;
 }
 
+int* Engine::readMapFile(int level[]) {
+    ifstream myfile ("../assets/map.txt");
+    if (myfile.is_open())
+    {
+        while (! myfile.eof() )
+        {
+            char piece;
+            int simb;
+            for(int i = 0; i < 129; i++){
+                myfile >> piece;
+                simb = piece-'0';
+                level[i] = simb;
+            }
+        }
+        myfile.close();
+    }
+    else { //Error message
+        cout << "Can't find input file " << endl;
+    }
+    return level;
+}
+
 void Engine::getMap(const int gameMap[], unsigned int width, unsigned int height, int pixels) {
     this->mapHeight = height;
     this->mapWidth = width;
@@ -80,11 +102,11 @@ void Engine::pollEvents(){
                 this->window->close();
                 break;
             case Event::KeyPressed:
-                if(this->sfmlEvent.key.code == Keyboard::Escape)
-                    this->window->close();
+                if(this->sfmlEvent.key.code == Keyboard::Escape){
+                    //pause
                 /* display inventory on request
                 else if(this->sfmlEvent.key.code == Keyboard::I)
-                    this->inventory->render();*/
+                    this->inventory->render();*/}
                 break;
         }
     }
@@ -97,12 +119,25 @@ void Engine::update() {
 
 void Engine::render(TileMap map) {
     this->window->clear();
-
     this->window->draw(map);
-    //new render
+    this->showText();
     this->player.render(this->window);
     this->window->display();
 }
-//functions
 
+void Engine::showText() {
+    sf::Font font;
+    if (!font.loadFromFile("../assets/arial.ttf"))
+    {
+        // error...
+    }
+    sf::Text text;
 
+    text.setFont(font);
+    text.setString(this->player.namePlayer+" Day:" +to_string(this->player.day)+ " Money: "+to_string(this->player.money)+" Energy: "+to_string(this->player.energy));
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::Black);
+    text.setStyle(sf::Text::Bold);
+
+    window->draw(text);
+}

@@ -4,7 +4,7 @@
 
 PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     FloatRect playerBounds = pl.sprite.getGlobalBounds();
-    int squareType = checkEnteredSquare(playerBounds.left, playerBounds.top, map, mapWidth, mapHeight, px);
+    int squareType = checkEnteredSquare(playerBounds.left, playerBounds.top+playerBounds.height, map, mapWidth, mapHeight, px);
     if(squareType == 5){
         return new ShoppingState();
     }
