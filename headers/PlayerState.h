@@ -18,7 +18,6 @@ public:
     virtual ~PlayerState();
     virtual PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
     virtual void update(Player& pl);
-    virtual void enter(Player& pl);
 };
 
 

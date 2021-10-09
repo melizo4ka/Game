@@ -102,11 +102,13 @@ void Engine::pollEvents(){
                 this->window->close();
                 break;
             case Event::KeyPressed:
-                if(this->sfmlEvent.key.code == Keyboard::Escape){
-                    //pause
-                /* display inventory on request
-                else if(this->sfmlEvent.key.code == Keyboard::I)
-                    this->inventory->render();*/}
+                if(this->sfmlEvent.key.code == Keyboard::Escape)
+                    this->window->close();
+                // display inventory on request with I
+                else if(this->sfmlEvent.key.code == Keyboard::I && !iPressed)
+                    iPressed = true;
+                else if(this->sfmlEvent.key.code == Keyboard::I && iPressed)
+                    iPressed = false;
                 break;
         }
     }
@@ -122,6 +124,9 @@ void Engine::render(TileMap map) {
     this->window->draw(map);
     this->showText();
     this->player.render(this->window);
+    if(iPressed){
+        this->showInventory(player.inventory);
+    }
     this->window->display();
 }
 
@@ -140,4 +145,36 @@ void Engine::showText() {
     text.setStyle(sf::Text::Bold);
 
     window->draw(text);
+}
+
+void Engine::showInventory(int inventory[6][2]){
+    sf::Texture texture;
+    if (!texture.loadFromFile("../assets/itemset.png"))
+    {
+        // error...
+    }
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+    window->draw(sprite);
+
+    sf::Font font;
+    if (!font.loadFromFile("../assets/arial.ttf"))
+    {
+        // error...
+    }
+    sf::Text text;
+    text.setFont(font);
+    for (int i = 0; i < 6; i++){
+        for (int j = 0; j < 2; j++){
+
+        }
+    }
+    text.setString("Salmon " + to_string(inventory[0][1])+ "; Herring: "+to_string(inventory[1][1])+
+    "; Potato S. : "+to_string(inventory[2][1])+"; Potatoes: "+to_string(inventory[3][1])+
+    "; Apple Seed: "+to_string(inventory[4][1])+"; Apples: "+to_string(inventory[5][1]));
+    text.setCharacterSize(12);
+    text.setFillColor(sf::Color::Black);
+
+    window->draw(text);
+
 }

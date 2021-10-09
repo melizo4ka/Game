@@ -20,9 +20,6 @@ PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWid
         return new StandingState();
 }
 
-void StandingState::enter(Player& pl) {
-
-}
 
 int StandingState::checkEnteredSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px) {
     int mapX = x / px;

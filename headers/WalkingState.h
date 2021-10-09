@@ -18,7 +18,6 @@ class WalkingState
 public:
     float movementSpeed = 5.f;
     PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
-    virtual void enter(Player& pl);
 
     bool checkCollision(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
 

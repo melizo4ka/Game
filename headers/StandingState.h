@@ -12,7 +12,6 @@ public:
     float movementSpeed = 4.f;
 
     PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
-    void enter(Player& pl);
 
     int checkEnteredSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
 

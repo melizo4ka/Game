@@ -31,10 +31,6 @@ PlayerState* WalkingState::handleInput(Player& pl, vector <int> map, int mapWidt
     return new StandingState();
 }
 
-void WalkingState::enter(Player& pl)
-{
-
-}
 
 bool WalkingState::checkCollision(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px) {
     int mapX = x / px;

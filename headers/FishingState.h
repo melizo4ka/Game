@@ -17,7 +17,6 @@ class FishingState
 public:
 
     PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px);
-    void enter(Player& pl);
 
 };
 

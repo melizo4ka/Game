@@ -29,6 +29,11 @@ public:
     Texture standingTexture;
     PlayerState* state_;
 
+    int inventory[6][2]; //items (fish, fish, p seed, p plant, s seed, s plant) and quantity
+
+    int startingPosX = 128;
+    int startingPosY = 128;
+    int maxEnergy = 50;
 
     Player(int x = 128, int y = 128);
     virtual ~Player();
@@ -39,6 +44,7 @@ public:
     virtual void handleInput(vector <int> map, int mapWidth, int mapHeight, int px);
     Keyboard::Key getInput();
     int getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window);
+    void initInventory();
 
     void consumeEnergy();
 

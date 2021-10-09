@@ -15,9 +15,3 @@ PlayerState* FishingState::handleInput(Player& pl, vector <int> map, int mapWidt
     }*/
         return new StandingState();
 }
-
-void FishingState::enter(Player& pl)
-{
-    //pl.setGraphics(pl.walkingTexture);
-
-}

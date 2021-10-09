@@ -5,7 +5,6 @@
 #include "Shop.h"
 #include "Pond.h"
 #include "House.h"
-#include "Inventory.h"
 #include "Object.h"
 #include "Fish.h"
 #include "TileMap.h"
@@ -40,7 +39,7 @@ private:
     int pixels;
 
     Player player;
-    Inventory inventory;
+    bool iPressed = false;
 
     void initVariables(unsigned WindowWidth, unsigned WindowHeight);
     void initWindow();
@@ -62,6 +61,7 @@ public:
     void update();
     void render(TileMap);
     void showText();
+    void showInventory(int inventory[6][2]);
 
 };
 

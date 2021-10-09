@@ -7,6 +7,7 @@ Player::Player(int x, int y) {
     this->initGraphics(x, y);
     this->initVariables();
     this->state_ = new StandingState();
+    this->initInventory();
 }
 
 Player::~Player(){
@@ -26,6 +27,13 @@ void Player::initGraphics(int x, int y) {
     sprite.setTexture(standingTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
     sprite.setPosition(x, y);
+}
+
+void Player::initInventory() {
+    for (int i = 0; i < 6; i++){
+        inventory[i][0] = i;
+        inventory[i][1] = 0;
+    }
 }
 
 void Player::setName(){
@@ -72,8 +80,6 @@ void Player::handleInput(vector <int> map, int mapWidth, int mapHeight, int px) 
         delete state_;
         state_ = state;
 
-        // Call the enter action on the new state.
-        state_->enter(*this);
     }
 }
 
@@ -111,9 +117,6 @@ int Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, cons
         }
         //shop
         else if (squareClicked == 5){
-        }
-        //house
-        else if (squareClicked == 6){
         }
         consumeEnergy();
     }

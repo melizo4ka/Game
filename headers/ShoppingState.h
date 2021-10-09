@@ -17,8 +17,7 @@ class ShoppingState
         : public PlayerState{
 public:
 
-    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px);
-    void enter(Player& pl);
+    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
 
 
 };
