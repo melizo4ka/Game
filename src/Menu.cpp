@@ -5,20 +5,17 @@ Menu::Menu(float width, float height) {
         //error
     }
 
-    menu[0].setFont(font);
+    for(int i = 0; i < MAX_ITEMS; i++){
+        menu[i].setFont(font);
+        menu[i].setFillColor(sf::Color::White);
+        menu[i].setPosition(sf::Vector2f(100, height / (MAX_ITEMS + 1) * (i+1)));
+
+    }
+
     menu[0].setFillColor(sf::Color::Red);
     menu[0].setString("New Game");
-    menu[0].setPosition(sf::Vector2f(width / 2, height / (MAX_ITEMS + 1) * 1));
-
-    menu[1].setFont(font);
-    menu[1].setFillColor(sf::Color::White);
     menu[1].setString("Load Game");
-    menu[1].setPosition(sf::Vector2f(width / 2, height / (MAX_ITEMS + 1) * 2));
-
-    menu[2].setFont(font);
-    menu[2].setFillColor(sf::Color::White);
     menu[2].setString("Exit");
-    menu[2].setPosition(sf::Vector2f(width / 2, height / (MAX_ITEMS + 1) * 3));
 
     selectedItem = 0;
 }
@@ -47,4 +44,8 @@ void Menu::moveDown() {
         selectedItem++;
         menu[selectedItem].setFillColor(sf::Color::Red);
     }
+}
+
+int Menu::getPressedItem(){
+    return selectedItem;
 }

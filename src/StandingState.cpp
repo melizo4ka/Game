@@ -1,5 +1,7 @@
 #include <ShoppingState.h>
 #include <FishingState.h>
+#include <PlantingState.h>
+#include <HarvestingState.h>
 #include "StandingState.h"
 
 PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key) {
@@ -13,8 +15,17 @@ PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWid
     }
     else if(key == Keyboard::W || key == Keyboard::A || key == Keyboard::S || key == Keyboard::D )
         return new WalkingState();
-    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.pondClicked){
+        pl.pondClicked = false;
         return new FishingState();
+    }
+    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.blankClicked){
+        pl.blankClicked = false;
+        return new PlantingState();
+    }
+    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.harvestableClicked){
+        pl.harvestableClicked = false;
+        return new HarvestingState();
     }
     else
         return new StandingState();

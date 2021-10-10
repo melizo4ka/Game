@@ -54,10 +54,8 @@ public:
     int* readMapFile(int level[]);
     void getMap(const int gameMap[], unsigned int width, unsigned int height, int pixels);
 
-    //functions
-    const bool running() const;
+    bool running() const;
     void pollEvents();
-
     void update();
     void render(TileMap);
     void showText();

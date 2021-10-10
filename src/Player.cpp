@@ -2,6 +2,8 @@
 #include <iostream>
 #include "PlayerState.h"
 #include "StandingState.h"
+#include <windows.h>
+
 
 Player::Player(int x, int y) {
     this->initGraphics(x, y);
@@ -22,7 +24,7 @@ void Player::initVariables() {
 }
 
 void Player::initGraphics(int x, int y) {
-    standingTexture.loadFromFile("assets/standing.png");
+    standingTexture.loadFromFile("../assets/standing.png");
 
     sprite.setTexture(standingTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
@@ -63,13 +65,11 @@ void Player::update(const RenderWindow* target, vector <int> map, int mapWidth, 
     //window collision detection
     this->updateWindowBoundsCollision(target);
 
-
-    int clickedSquare = this->getClick(map, mapWidth, mapHeight, px, target);
+    this->getClick(map, mapWidth, mapHeight, px, target);
 }
 
 void Player::render(RenderWindow* window) {
     window->draw(sprite);
-
 }
 
 void Player::handleInput(vector <int> map, int mapWidth, int mapHeight, int px) {
@@ -79,7 +79,6 @@ void Player::handleInput(vector <int> map, int mapWidth, int mapHeight, int px) 
     {
         delete state_;
         state_ = state;
-
     }
 }
 
@@ -101,24 +100,25 @@ Keyboard::Key Player::getInput() {
     }
 }
 
-int Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window) {
-    //CLICKING on objects
-    if(Mouse::isButtonPressed(Mouse::Left)){
-        Vector2i position = sf::Mouse::getPosition(*window);
-        int squareClicked = map[(position.x / px) * mapHeight + (position.y / px)];
-        //pond
-        if (squareClicked == 1){
+void Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window) {
+    if(energy > 0){
+        //CLICKING on objects
+        if(Mouse::isButtonPressed(Mouse::Left)){
+            Vector2i position = sf::Mouse::getPosition(*window);
+            int squareClicked = map[(position.x / px) * mapHeight + (position.y / px)];
+            //pond
+            if (squareClicked == 1){
+                pondClicked = true;
+            }
+            //blank ground
+            else if (squareClicked == 2){
+                blankClicked = true;
+            }
+            //harvest
+            else if (squareClicked == 10){
+                harvestableClicked = true;
+            }
         }
-        //blank ground
-        else if (squareClicked == 2){
-        }
-        //harvest
-        else if (squareClicked == 10){
-        }
-        //shop
-        else if (squareClicked == 5){
-        }
-        consumeEnergy();
     }
 }
 

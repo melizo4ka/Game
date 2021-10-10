@@ -1,25 +1,24 @@
-#ifndef GAME_MENU_H
-#define GAME_MENU_H
+#ifndef GAME_SHOPMENU_H
+#define GAME_SHOPMENU_H
 #include "SFML/Graphics.hpp"
 
-#define MAX_ITEMS 3
+#define MAX_ITEMS 12
 
-class Menu {
+class ShopMenu {
 private:
     int selectedItem;
     sf::Font font;
     sf::Text menu[MAX_ITEMS];
 
 public:
-    Menu(float width, float height);
-    ~Menu();
+    ShopMenu(float width, float height);
+    ~ShopMenu();
 
     void draw(sf::RenderWindow &window);
     void moveUp();
     void moveDown();
     int getPressedItem();
-
 };
 
 
-#endif //GAME_MENU_H
+#endif //GAME_SHOPMENU_H

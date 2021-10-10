@@ -89,7 +89,7 @@ void Engine::getMap(const int gameMap[], unsigned int width, unsigned int height
         }
 }
 
-const bool Engine::running() const {
+bool Engine::running() const {
     return this->window->isOpen();
 }
 
@@ -104,6 +104,7 @@ void Engine::pollEvents(){
             case Event::KeyPressed:
                 if(this->sfmlEvent.key.code == Keyboard::Escape)
                     this->window->close();
+
                 // display inventory on request with I
                 else if(this->sfmlEvent.key.code == Keyboard::I && !iPressed)
                     iPressed = true;
@@ -136,14 +137,13 @@ void Engine::showText() {
     {
         // error...
     }
-    sf::Text text;
 
+    sf::Text text;
     text.setFont(font);
     text.setString(this->player.namePlayer+" Day:" +to_string(this->player.day)+ " Money: "+to_string(this->player.money)+" Energy: "+to_string(this->player.energy));
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
-
     window->draw(text);
 }
 
@@ -164,17 +164,10 @@ void Engine::showInventory(int inventory[6][2]){
     }
     sf::Text text;
     text.setFont(font);
-    for (int i = 0; i < 6; i++){
-        for (int j = 0; j < 2; j++){
-
-        }
-    }
     text.setString("Salmon " + to_string(inventory[0][1])+ "; Herring: "+to_string(inventory[1][1])+
     "; Potato S. : "+to_string(inventory[2][1])+"; Potatoes: "+to_string(inventory[3][1])+
     "; Apple Seed: "+to_string(inventory[4][1])+"; Apples: "+to_string(inventory[5][1]));
     text.setCharacterSize(12);
     text.setFillColor(sf::Color::Black);
-
     window->draw(text);
-
 }

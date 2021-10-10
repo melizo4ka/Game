@@ -9,9 +9,6 @@ Pond::~Pond() {
 }
 
 int Pond::fishRandom() {
-    default_random_engine generator;
-    uniform_int_distribution<int> distribution(1,10);
-    int p;
-    p = distribution(generator);
+    int p = rand() % 8;  // in the range 0 to 7
     return p;
 }

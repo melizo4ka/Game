@@ -27,9 +27,9 @@ int main() {
                                 case 1:
                                     // load from file
                                     break;
-                                    case 2:
-                                        window.close();
-                                        break;
+                                case 2:
+                                    window.close();
+                                    break;
                                 case 0:
                                     window.close();
                                     //initialize game

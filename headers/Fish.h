@@ -1,26 +1,15 @@
 #ifndef GAME_FISH_H
 #define GAME_FISH_H
 
-#include "Item.h"
-
-class Item;
-
-class Fish :
-        public Item{
+class Fish {
 private:
-    void initVariables(float catchingProb, int caughtValue);
-
-protected:
+    void initVariables(int caughtValue);
 
 public:
-    float catchingProb;
     int caughtValue;
 
-    Fish(float catchingProb, int caughtValue);
+    Fish(int caughtValue);
     virtual ~Fish();
-
-    //virtual Fish* clone() = 0;
-
 
 };
 

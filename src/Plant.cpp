@@ -6,27 +6,10 @@ void Plant::initVariables(int seedValue, int grownValue, int daysToHarvest) {
     this->daysToHarvest = daysToHarvest;
 }
 
-Plant::Plant(int seedValue, int grownValue, int daysToHarvest)
-    : Item()
-{
+Plant::Plant(int seedValue, int grownValue, int daysToHarvest){
     this->initVariables(seedValue, grownValue, daysToHarvest);
-
-    this->type = ItemTypes::IT_PLANT;
-
 }
 
 Plant::~Plant() {
-
-}
-
-/*Plant* Plant::clone() {
-    return nullptr;
-}*/
-
-void Plant::update() {
-
-}
-
-void Plant::render() {
 
 }

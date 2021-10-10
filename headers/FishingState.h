@@ -9,14 +9,17 @@
 #include <SFML/Network.hpp>
 #include "PlayerState.h"
 #include "WalkingState.h"
-using namespace sf;
+#include "Pond.h"
+#include "Fish.h"
+#include <memory>
 
+using namespace sf;
 
 class FishingState
         : public PlayerState{
 public:
 
-    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px);
+    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
 
 };
 

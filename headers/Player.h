@@ -7,7 +7,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
-#include "Item.h"
 #include "PlayerState.h"
 
 using namespace sf;
@@ -25,15 +24,19 @@ public:
     int money;
     int energy;
     int day;
-    Sprite sprite;
-    Texture standingTexture;
-    PlayerState* state_;
-
-    int inventory[6][2]; //items (fish, fish, p seed, p plant, s seed, s plant) and quantity
-
     int startingPosX = 128;
     int startingPosY = 128;
     int maxEnergy = 50;
+
+    Sprite sprite;
+    Texture standingTexture;
+    PlayerState* state_;
+    int inventory[6][2]; //items (fish, fish, p seed, p plant, s seed, s plant) and quantity
+
+    bool pondClicked = false;
+    bool blankClicked = false;
+    bool harvestableClicked = false;
+
 
     Player(int x = 128, int y = 128);
     virtual ~Player();
@@ -43,7 +46,7 @@ public:
     void render(RenderWindow* window);
     virtual void handleInput(vector <int> map, int mapWidth, int mapHeight, int px);
     Keyboard::Key getInput();
-    int getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window);
+    void getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window);
     void initInventory();
 
     void consumeEnergy();
