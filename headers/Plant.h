@@ -2,15 +2,11 @@
 #define GAME_PLANT_H
 
 class Plant{
-private:
-    void initVariables(int seedValue, int grownValue, int daysToHarvest);
-
-protected:
+public:
     int seedValue;
     int grownValue;
     int daysToHarvest;
 
-public:
     Plant(int seedValue, int grownValue, int daysToHarvest);
     virtual ~Plant();
 

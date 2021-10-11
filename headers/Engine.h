@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <memory>
+
 using namespace sf;
 using namespace std;
 
@@ -30,7 +32,6 @@ private:
     unsigned WindowHeight;
 
     VideoMode videoMode;
-    bool endEngine;
     Event sfmlEvent;
 
     vector <int> map ;
@@ -45,7 +46,6 @@ private:
     void initWindow();
 
 public:
-    //constructor and destructor
     Engine();
     ~Engine();
 

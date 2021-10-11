@@ -2,7 +2,7 @@
 #define GAME_SHOPMENU_H
 #include "SFML/Graphics.hpp"
 
-#define MAX_ITEMS 12
+#define MAX_ITEMS 6
 
 class ShopMenu {
 private:

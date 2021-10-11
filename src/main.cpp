@@ -4,8 +4,6 @@
 
 int main() {
 
-
-
     sf::RenderWindow window(sf::VideoMode(400, 400), "Menu");
     Menu menu(window.getSize().x, window.getSize().y);
 
@@ -25,6 +23,7 @@ int main() {
                         case sf::Keyboard::Return:
                             switch(menu.getPressedItem()){
                                 case 1:
+                                    window.close();
                                     // load from file
                                     break;
                                 case 2:
@@ -66,7 +65,6 @@ int main() {
         window.clear();
         menu.draw(window);
         window.display();
-
     }
     return 0;
 }

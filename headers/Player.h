@@ -8,10 +8,11 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include "PlayerState.h"
+#include "Plant.h"
+#include "Fish.h"
 
 using namespace sf;
 using namespace std;
-
 
 class Player {
 private:
@@ -28,15 +29,19 @@ public:
     int startingPosY = 128;
     int maxEnergy = 50;
 
+    Plant potato = Plant(10, 50, 2);
+    Plant apple = Plant(80, 800, 3);
+    Fish salmon = Fish(1000);
+    Fish herring = Fish(200);
+
     Sprite sprite;
     Texture standingTexture;
     PlayerState* state_;
-    int inventory[6][2]; //items (fish, fish, p seed, p plant, s seed, s plant) and quantity
+    int inventory[6][2]; //items (salmon, herring, p seed, p plant, s seed, s plant) and quantity
 
     bool pondClicked = false;
     bool blankClicked = false;
     bool harvestableClicked = false;
-
 
     Player(int x = 128, int y = 128);
     virtual ~Player();
@@ -48,7 +53,6 @@ public:
     Keyboard::Key getInput();
     void getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window);
     void initInventory();
-
     void consumeEnergy();
 
 };

@@ -102,7 +102,8 @@ Keyboard::Key Player::getInput() {
 
 void Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window) {
     if(energy > 0){
-        //CLICKING on objects
+        //clicking on objects
+
         if(Mouse::isButtonPressed(Mouse::Left)){
             Vector2i position = sf::Mouse::getPosition(*window);
             int squareClicked = map[(position.x / px) * mapHeight + (position.y / px)];

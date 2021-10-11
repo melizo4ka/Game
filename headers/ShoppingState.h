@@ -10,8 +10,10 @@
 #include <SFML/Network.hpp>
 #include "PlayerState.h"
 #include "WalkingState.h"
-using namespace sf;
+#include "Fish.h"
+#include <memory>
 
+using namespace sf;
 
 class ShoppingState
         : public PlayerState{

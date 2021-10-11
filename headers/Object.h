@@ -13,7 +13,6 @@ private:
 
     void initVariables(float posX, float posY);
 
-
 protected:
     Sprite sprite;
 

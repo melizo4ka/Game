@@ -4,7 +4,6 @@ PlayerState* FishingState::handleInput(Player& pl, vector <int> map, int mapWidt
     if(pl.energy > 0){
         Vector2f position = pl.sprite.getPosition();
         Pond pond(position.x, position.y);
-        printf("You clicked on pond \n");
         int p = pond.fishRandom();
         if (p > 1 && p <= 5){
             //put Herring into inventory
@@ -16,6 +15,7 @@ PlayerState* FishingState::handleInput(Player& pl, vector <int> map, int mapWidt
             shared_ptr<Fish> salmon(new Fish(500));
             pl.inventory[0][1] = pl.inventory[0][1]+1;
         }
+        pl.consumeEnergy();
         return new StandingState();
     }
     else

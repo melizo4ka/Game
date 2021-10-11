@@ -1,8 +1,6 @@
-#include <memory>
 #include "Engine.h"
 
 void Engine::initVariables(unsigned WindowWidth, unsigned WindowHeight) {
-    this->endEngine = false;
     this->WindowWidth = WindowWidth;
     this->WindowHeight = WindowHeight;
 }
@@ -12,13 +10,11 @@ void Engine::initWindow() {
     this->window->setFramerateLimit(60);
 }
 
-//constructor
 Engine::Engine() {
     this->initVariables(1024, 512);
     this->initWindow();
 }
 
-//destructor
 Engine::~Engine(){
     delete this->window;
 }
@@ -39,7 +35,7 @@ int* Engine::readMapFile(int level[]) {
         }
         myfile.close();
     }
-    else { //Error message
+    else {
         cout << "Can't find input file " << endl;
     }
     return level;
@@ -96,7 +92,6 @@ bool Engine::running() const {
 void Engine::pollEvents(){
     while(this->window->pollEvent(this->sfmlEvent)){
         switch (this->sfmlEvent.type){
-
             //window closing
             case Event::Closed:
                 this->window->close();
@@ -166,7 +161,7 @@ void Engine::showInventory(int inventory[6][2]){
     text.setFont(font);
     text.setString("Salmon " + to_string(inventory[0][1])+ "; Herring: "+to_string(inventory[1][1])+
     "; Potato S. : "+to_string(inventory[2][1])+"; Potatoes: "+to_string(inventory[3][1])+
-    "; Apple Seed: "+to_string(inventory[4][1])+"; Apples: "+to_string(inventory[5][1]));
+    "; Apple S.: "+to_string(inventory[4][1])+"; Apples: "+to_string(inventory[5][1]));
     text.setCharacterSize(12);
     text.setFillColor(sf::Color::Black);
     window->draw(text);

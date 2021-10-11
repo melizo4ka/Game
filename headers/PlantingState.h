@@ -10,6 +10,9 @@ class PlantingState
 public:
 
     PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
+
+    static int getMapSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
+
 };
 
 

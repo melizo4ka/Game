@@ -13,7 +13,7 @@ public:
 
     PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
 
-    int checkEnteredSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
+    static int checkEnteredSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
 
 };
 
