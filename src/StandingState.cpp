@@ -4,7 +4,7 @@
 #include <HarvestingState.h>
 #include "StandingState.h"
 
-PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+PlayerState* StandingState::handleInput(Player &pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     FloatRect playerBounds = pl.sprite.getGlobalBounds();
     int squareType = checkEnteredSquare(playerBounds.left, playerBounds.top+playerBounds.height, map, mapWidth, mapHeight, px);
 
@@ -29,7 +29,7 @@ PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWid
         return new PlantingState();
     }
 
-    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.harvestableClicked && squareType == 10){
+    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.harvestableClicked && (squareType == 9||squareType == 13)){
         pl.harvestableClicked = false;
         return new HarvestingState();
     }
@@ -38,9 +38,9 @@ PlayerState* StandingState::handleInput(Player &pl, vector <int> map, int mapWid
         return new StandingState();
 }
 
-int StandingState::checkEnteredSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px) {
+int StandingState::checkEnteredSquare(float x, float y, int map[], int mapWidth, int mapHeight, int px) {
     int mapX = x / px;
     int mapY = y / px;
-    int newSquare = map[mapX * mapHeight + mapY];
+    int newSquare = map[mapX + mapY * mapWidth];
     return newSquare;
 }

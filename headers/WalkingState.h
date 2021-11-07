@@ -17,9 +17,9 @@ class WalkingState
         : public PlayerState{
 public:
     float movementSpeed = 5.f;
-    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
+    PlayerState* handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key);
 
-    bool checkCollision(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
+    bool checkCollision(float x, float y, int map[], int mapWidth, int px);
 
 };
 

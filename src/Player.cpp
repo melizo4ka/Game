@@ -19,7 +19,7 @@ Player::~Player(){
 void Player::initVariables() {
     this->setName();
     this->money = 1000;
-    this->energy = 50;
+    this->energy = maxEnergy;
     this->day = 1;
 }
 
@@ -59,7 +59,7 @@ void Player::updateWindowBoundsCollision(const RenderTarget *target) {
         this->sprite.setPosition(playerBounds.left, target->getSize().y - playerBounds.height);
 }
 
-void Player::update(const RenderWindow* target, vector <int> map, int mapWidth, int mapHeight, int px) {
+void Player::update(const RenderWindow* target, int map[], int mapWidth, int mapHeight, int px) {
     this->handleInput(map, mapWidth, mapHeight, px);
 
     //window collision detection
@@ -72,9 +72,10 @@ void Player::render(RenderWindow* window) {
     window->draw(sprite);
 }
 
-void Player::handleInput(vector <int> map, int mapWidth, int mapHeight, int px) {
+void Player::handleInput(int map[], int mapWidth, int mapHeight, int px) {
     Keyboard::Key key = this->getInput();
     PlayerState* state = state_->handleInput(*this, map, mapWidth, mapHeight, px, key);
+
     if (state != nullptr)
     {
         delete state_;
@@ -100,13 +101,12 @@ Keyboard::Key Player::getInput() {
     }
 }
 
-void Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window) {
+void Player::getClick(int map[], int mapWidth, int mapHeight, int px, const RenderWindow* window) {
     if(energy > 0){
         //clicking on objects
-
         if(Mouse::isButtonPressed(Mouse::Left)){
             Vector2i position = sf::Mouse::getPosition(*window);
-            int squareClicked = map[(position.x / px) * mapHeight + (position.y / px)];
+            int squareClicked = map[(position.x / px) + (position.y / px) * mapWidth];
             //pond
             if (squareClicked == 1){
                 pondClicked = true;
@@ -116,7 +116,7 @@ void Player::getClick(vector <int> map, int mapWidth, int mapHeight, int px, con
                 blankClicked = true;
             }
             //harvest
-            else if (squareClicked == 10){
+            else if (squareClicked == 9 || squareClicked == 13){
                 harvestableClicked = true;
             }
         }

@@ -27,11 +27,11 @@ public:
     int day;
     int startingPosX = 128;
     int startingPosY = 128;
-    int maxEnergy = 50;
+    int maxEnergy = 30;
 
     Plant potato = Plant(10, 50, 2);
     Plant apple = Plant(80, 800, 3);
-    Fish salmon = Fish(1000);
+    Fish salmon = Fish(500);
     Fish herring = Fish(200);
 
     Sprite sprite;
@@ -45,16 +45,17 @@ public:
 
     Player(int x = 128, int y = 128);
     virtual ~Player();
+    void initInventory();
 
     void updateWindowBoundsCollision(const RenderTarget* target);
-    void update(const RenderWindow* target, vector <int> map, int mapWidth, int mapHeight, int px);
+    void update(const RenderWindow* target, int map[], int mapWidth, int mapHeight, int px);
     void render(RenderWindow* window);
-    virtual void handleInput(vector <int> map, int mapWidth, int mapHeight, int px);
-    Keyboard::Key getInput();
-    void getClick(vector <int> map, int mapWidth, int mapHeight, int px, const RenderWindow* window);
-    void initInventory();
-    void consumeEnergy();
 
+    virtual void handleInput(int map[], int mapWidth, int mapHeight, int px);
+    Keyboard::Key getInput();
+    void getClick(int map[], int mapWidth, int mapHeight, int px, const RenderWindow* window);
+
+    void consumeEnergy();
 };
 
 

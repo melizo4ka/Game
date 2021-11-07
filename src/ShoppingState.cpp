@@ -1,7 +1,7 @@
 #include <ShopMenu.h>
 #include "ShoppingState.h"
 
-PlayerState* ShoppingState::handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+PlayerState* ShoppingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     sf::RenderWindow menuWindow(sf::VideoMode(300, 600), "Shop Menu");
     ShopMenu shopMenu(menuWindow.getSize().x, menuWindow.getSize().y);
     while (menuWindow.isOpen()){

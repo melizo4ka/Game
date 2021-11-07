@@ -9,7 +9,7 @@ class SleepingState
         : public PlayerState{
 public:
 
-    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
+    PlayerState* handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key);
 
 
 };

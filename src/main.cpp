@@ -34,23 +34,9 @@ int main() {
                                     //initialize game
                                     Engine engine;
 
-                                    bool mapInitialized = false;
-
                                     //game loop
                                     while(engine.running()){
-                                        int array[128];
-                                        int *level = engine.readMapFile(array);
-
-                                        //const int* level;
-                                        TileMap map;
-                                        if (!map.load("assets/tileset.png", sf::Vector2u(32, 32), level, 16, 8))
-                                            return -1;
-                                        if(!mapInitialized){
-                                            engine.getMap(level, 16, 8, 64);
-                                            mapInitialized = true;
-                                        }
                                         engine.update();
-                                        engine.render(map);
                                     }
                                     break;
                             }

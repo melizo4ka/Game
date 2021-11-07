@@ -1,8 +1,12 @@
 #include "Engine.h"
 
-void Engine::initVariables(unsigned WindowWidth, unsigned WindowHeight) {
+void Engine::initVariables(unsigned WindowWidth, unsigned WindowHeight, unsigned width, unsigned height, unsigned pixels ) {
     this->WindowWidth = WindowWidth;
     this->WindowHeight = WindowHeight;
+    this->level = readMapFile(map);
+    this->mapWidth = width;
+    this->mapHeight = height;
+    this->pixels = pixels;
 }
 void Engine::initWindow() {
     this->videoMode = VideoMode(WindowWidth, WindowHeight);
@@ -11,7 +15,7 @@ void Engine::initWindow() {
 }
 
 Engine::Engine() {
-    this->initVariables(1024, 512);
+    this->initVariables(1024, 512, 16, 8, 64);
     this->initWindow();
 }
 
@@ -26,11 +30,11 @@ int* Engine::readMapFile(int level[]) {
         while (! myfile.eof() )
         {
             char piece;
-            int simb;
+            int symbol;
             for(int i = 0; i < 129; i++){
                 myfile >> piece;
-                simb = piece-'0';
-                level[i] = simb;
+                symbol = piece-'0';
+                level[i] = symbol;
             }
         }
         myfile.close();
@@ -39,50 +43,6 @@ int* Engine::readMapFile(int level[]) {
         cout << "Can't find input file " << endl;
     }
     return level;
-}
-
-void Engine::getMap(const int gameMap[], unsigned int width, unsigned int height, int pixels) {
-    this->mapHeight = height;
-    this->mapWidth = width;
-    this->pixels = pixels; //pixel per object
-
-    for (unsigned int i = 0; i < width; ++i)
-        for (unsigned int j = 0; j < height; ++j)
-        {
-            //pond
-            if(gameMap[i + j * width] == 1){
-                Pond pond(i * pixels, j * pixels);
-                map.push_back(1);
-            }
-            //ground
-            else if(gameMap[i + j * width] == 2){
-                Object object(i * pixels, j * pixels);
-                map.push_back(2);
-            }
-            //stone
-            else if(gameMap[i + j * width] == 3){
-                Object object(i * pixels, j * pixels);
-                map.push_back(3);
-            }
-            //tree
-            else if(gameMap[i + j * width] == 4){
-                Object object(i * pixels, j * pixels);
-                map.push_back(4);
-            }
-            //shop
-            else if(gameMap[i + j * width] == 5){
-                Shop shop(i * pixels, j * pixels);
-                map.push_back(5);
-            }
-            //house
-            else if(gameMap[i + j * width] == 6){
-                House house(i * pixels, j * pixels);
-                map.push_back(6);
-            }
-            else{
-                map.push_back(0);
-            }
-        }
 }
 
 bool Engine::running() const {
@@ -111,13 +71,18 @@ void Engine::pollEvents(){
 }
 
 void Engine::update() {
+    if(!tilemap.load("assets/tileset.png", sf::Vector2u(32, 32), level, 16, 8))
+    {
+        // error...
+    }
     this->pollEvents();
     this->player.update(this->window, this->map, this->mapWidth, this->mapHeight, this->pixels);
+    render(tilemap);
 }
 
-void Engine::render(TileMap map) {
+void Engine::render(TileMap) {
     this->window->clear();
-    this->window->draw(map);
+    this->window->draw(tilemap);//<---
     this->showText();
     this->player.render(this->window);
     if(iPressed){
@@ -132,7 +97,6 @@ void Engine::showText() {
     {
         // error...
     }
-
     sf::Text text;
     text.setFont(font);
     text.setString(this->player.namePlayer+" Day:" +to_string(this->player.day)+ " Money: "+to_string(this->player.money)+" Energy: "+to_string(this->player.energy));

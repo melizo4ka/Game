@@ -34,15 +34,17 @@ private:
     VideoMode videoMode;
     Event sfmlEvent;
 
-    vector <int> map ;
     int mapWidth;
     int mapHeight;
     int pixels;
 
+    int map[128];
+    int *level;
+
     Player player;
     bool iPressed = false;
 
-    void initVariables(unsigned WindowWidth, unsigned WindowHeight);
+    void initVariables(unsigned WindowWidth, unsigned WindowHeight,unsigned width, unsigned height, unsigned pixels);
     void initWindow();
 
 public:
@@ -50,9 +52,9 @@ public:
     ~Engine();
 
     RenderWindow* window;
+    TileMap tilemap;
 
     int* readMapFile(int level[]);
-    void getMap(const int gameMap[], unsigned int width, unsigned int height, int pixels);
 
     bool running() const;
     void pollEvents();

@@ -9,9 +9,9 @@ class PlantingState
         : public PlayerState{
 public:
 
-    PlayerState* handleInput(Player& pl, vector <int> map, int mapWidth, int mapHeight, int px, Keyboard::Key key);
+    PlayerState* handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key);
 
-    static int getMapSquare(float x, float y, vector <int> map, int mapWidth, int mapHeight, int px);
+    int getTile(float x, float y, int map[], int mapWidth, int px);
 
 };
 
