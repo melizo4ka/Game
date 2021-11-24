@@ -2,7 +2,7 @@
 #define GAME_MENU_H
 #include "SFML/Graphics.hpp"
 
-#define MAX_ITEMS 3
+#define MAX_ITEMS 2
 
 class Menu {
 private:

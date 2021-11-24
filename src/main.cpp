@@ -24,10 +24,6 @@ int main() {
                             switch(menu.getPressedItem()){
                                 case 1:
                                     window.close();
-                                    // load from file
-                                    break;
-                                case 2:
-                                    window.close();
                                     break;
                                 case 0:
                                     window.close();

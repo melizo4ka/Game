@@ -1,22 +1,16 @@
 #include "googletest-master/googletest/include/gtest/gtest.h"
 #include "../headers/Player.h"
 
-TEST(Player, DefaultConstructor){
+
+TEST(Player, CheckConstructor){
     Player pl;
+    ASSERT_EQ(30, pl.energy);
     FloatRect playerBounds = pl.sprite.getGlobalBounds();
-    ASSERT_EQ(0, playerBounds.left);
-    ASSERT_EQ(0, playerBounds.top);
+    ASSERT_EQ(128, playerBounds.left);
+    ASSERT_EQ(128, playerBounds.top);
 }
 
-TEST(PlayerSuite, TestMove){
+class PlayerSuite : public ::testing::Test{
+protected:
     Player pl;
-    FloatRect playerBounds = pl.sprite.getGlobalBounds();
-    //move left
-    Keyboard::Key key = Keyboard::Key::A;
-    //PlayerState* state = pl.state_->handleInput(*this, map, mapWidth, mapHeight, px, key);
-
-    //check window collision
-    ASSERT_EQ(0, playerBounds.left);
-    ASSERT_EQ(0, playerBounds.top);
-
-}
+};

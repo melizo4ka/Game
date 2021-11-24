@@ -14,8 +14,7 @@ Menu::Menu(float width, float height) {
 
     menu[0].setFillColor(sf::Color::Red);
     menu[0].setString("New Game");
-    menu[1].setString("Load Game");
-    menu[2].setString("Exit");
+    menu[1].setString("Exit");
 
     selectedItem = 0;
 }
