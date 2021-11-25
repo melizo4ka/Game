@@ -1,6 +1,6 @@
 #include "SleepingState.h"
 
-PlayerState* SleepingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+std::shared_ptr<PlayerState> SleepingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     pl.day++;
     for (int i= 0; i < mapWidth*mapHeight; i++){
         //potato
@@ -15,9 +15,11 @@ PlayerState* SleepingState::handleInput(Player& pl, int map[], int mapWidth, int
             map[i] = 12;
         else if (map[i] == 12)
             map[i] = 13;
+        else if (map[i] == 13)
+            map[i] = 2;
     }
     pl.energy = pl.maxEnergy;
     pl.sprite.setPosition(pl.startingPosX, pl.startingPosY);
-    return new StandingState();
+    return std::shared_ptr<PlayerState>(new StandingState());
 }
 

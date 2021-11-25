@@ -3,13 +3,13 @@ project(Game)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Game src/main.cpp src/Engine.cpp headers/Engine.h src/Player.cpp headers/Player.h src/Plant.cpp headers/Plant.h src/Fish.cpp headers/Fish.h src/Shop.cpp headers/Shop.h src/Pond.cpp headers/Pond.h src/House.cpp headers/House.h src/Object.cpp headers/Object.h src/TileMap.cpp headers/TileMap.h src/PlayerState.cpp headers/PlayerState.h src/StandingState.cpp headers/StandingState.h src/WalkingState.cpp headers/WalkingState.h src/FishingState.cpp headers/FishingState.h src/ShoppingState.cpp headers/ShoppingState.h src/Menu.cpp headers/Menu.h src/SleepingState.cpp headers/SleepingState.h src/PlantingState.cpp headers/PlantingState.h src/ShopMenu.cpp headers/ShopMenu.h src/HarvestingState.cpp headers/HarvestingState.h Google_tests/lib/PlayerFixture.cpp)
+add_executable(Game src/main.cpp src/Engine.cpp headers/Engine.h src/Player.cpp headers/Player.h src/Plant.cpp headers/Plant.h src/Fish.cpp headers/Fish.h src/Shop.cpp headers/Shop.h src/Pond.cpp headers/Pond.h src/House.cpp headers/House.h src/Object.cpp headers/Object.h src/TileMap.cpp headers/TileMap.h src/PlayerState.cpp headers/PlayerState.h src/StandingState.cpp headers/StandingState.h src/WalkingState.cpp headers/WalkingState.h src/FishingState.cpp headers/FishingState.h src/ShoppingState.cpp headers/ShoppingState.h src/Menu.cpp headers/Menu.h src/SleepingState.cpp headers/SleepingState.h src/PlantingState.cpp headers/PlantingState.h src/ShopMenu.cpp headers/ShopMenu.h src/HarvestingState.cpp headers/HarvestingState.h Test/PlayerFixture.cpp)
 
 include_directories(headers /usr/include c:/SFML/include)
 
 add_subdirectory(headers)
 add_subdirectory(src)
-add_subdirectory(Google_tests)
+add_subdirectory(Test)
 
 set(SFML_ROOT c:/SFML)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")

@@ -8,6 +8,4 @@ Fish::Fish(int caughtValue){
     this->initVariables(caughtValue);
 }
 
-Fish::~Fish() {
-
-}
+Fish::~Fish() = default;

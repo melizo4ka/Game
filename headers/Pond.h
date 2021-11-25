@@ -14,7 +14,7 @@ public:
     Pond(float posX, float posY);
     virtual ~Pond();
 
-    int fishRandom();
+    static int fishRandom();
 };
 
 

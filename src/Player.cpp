@@ -3,12 +3,13 @@
 #include "PlayerState.h"
 #include "StandingState.h"
 #include <windows.h>
+#include <memory>
 
 
 Player::Player(int x, int y) {
     this->initGraphics(x, y);
     this->initVariables();
-    this->state_ = new StandingState();
+    this->state_ = std::shared_ptr<PlayerState>(new StandingState());
     this->initInventory();
 }
 
@@ -24,7 +25,12 @@ void Player::initVariables() {
 }
 
 void Player::initGraphics(int x, int y) {
-    standingTexture.loadFromFile("../assets/standing.png");
+    try{
+        standingTexture.loadFromFile("../assets/standing.png");
+    }
+    catch (...){
+        std::cerr << "Couldn't find Standing Texture" << std::endl;
+    }
 
     sprite.setTexture(standingTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 42, 57));
@@ -39,11 +45,11 @@ void Player::initInventory() {
 }
 
 void Player::setName(){
-    cout << "Insert your NAME here: \n";
+    cout << "Insert your Name here: \n";
     cin >> namePlayer;
 }
 
-void Player::updateWindowBoundsCollision(const RenderTarget *target) {
+void Player::updateWindowBoundsCollision(std::shared_ptr<RenderWindow> target) {
     FloatRect playerBounds = this->sprite.getGlobalBounds();
     //left collision
     if(playerBounds.left < 0.f)
@@ -59,7 +65,7 @@ void Player::updateWindowBoundsCollision(const RenderTarget *target) {
         this->sprite.setPosition(playerBounds.left, target->getSize().y - playerBounds.height);
 }
 
-void Player::update(const RenderWindow* target, int map[], int mapWidth, int mapHeight, int px) {
+void Player::update(std::shared_ptr<RenderWindow> target, int map[], int mapWidth, int mapHeight, int px) {
     this->handleInput(map, mapWidth, mapHeight, px);
 
     //window collision detection
@@ -68,19 +74,16 @@ void Player::update(const RenderWindow* target, int map[], int mapWidth, int map
     this->getClick(map, mapWidth, mapHeight, px, target);
 }
 
-void Player::render(RenderWindow* window) {
+void Player::render(std::shared_ptr<RenderWindow> window) {
     window->draw(sprite);
 }
 
 void Player::handleInput(int map[], int mapWidth, int mapHeight, int px) {
     Keyboard::Key key = this->getInput();
-    PlayerState* state = state_->handleInput(*this, map, mapWidth, mapHeight, px, key);
+    std::shared_ptr<PlayerState> state = state_->handleInput(*this, map, mapWidth, mapHeight, px, key);
 
     if (state != nullptr)
-    {
-        delete state_;
         state_ = state;
-    }
 }
 
 Keyboard::Key Player::getInput() {
@@ -101,7 +104,7 @@ Keyboard::Key Player::getInput() {
     }
 }
 
-void Player::getClick(int map[], int mapWidth, int mapHeight, int px, const RenderWindow* window) {
+void Player::getClick(const int map[], int mapWidth, int mapHeight, int px, std::shared_ptr<RenderWindow> window) {
     if(energy > 0){
         //clicking on objects
         if(Mouse::isButtonPressed(Mouse::Left)){

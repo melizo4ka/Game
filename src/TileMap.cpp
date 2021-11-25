@@ -1,10 +1,16 @@
+#include <iostream>
 #include "TileMap.h"
 
-bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, int* tiles, unsigned int width, unsigned int height)
+bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, int map[], unsigned int width, unsigned int height)
 {
     // load the tileset texture
-    if (!m_tileset.loadFromFile(tileset))
+    try{
+        m_tileset.loadFromFile(tileset);
+    }
+    catch (...){
+        std::cerr << "Couldn't find Arial Font" << std::endl;
         return false;
+    }
 
     // resize the vertex array to fit the level size
     m_vertices.setPrimitiveType(sf::Quads);
@@ -15,7 +21,7 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, int* tiles
         for (unsigned int j = 0; j < height; ++j)
         {
             // get the current tile number
-            int tileNumber = tiles[i + j * width];
+            int tileNumber = map[i + j * width];
 
             // find its position in the tileset texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
@@ -40,8 +46,7 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, int* tiles
     return true;
 }
 
-void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
+void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     // apply the transform
     states.transform *= getTransform();
 

@@ -39,7 +39,7 @@ private:
     int pixels;
 
     int map[128];
-    int *level;
+    std::shared_ptr<int> level;
 
     Player player;
     bool iPressed = false;
@@ -51,17 +51,17 @@ public:
     Engine();
     ~Engine();
 
-    RenderWindow* window;
+    std::shared_ptr<RenderWindow> window;
     TileMap tilemap;
 
-    int* readMapFile(int level[]);
+    static std::shared_ptr<int> readMapFile (int map[]);
 
     bool running() const;
     void pollEvents();
     void update();
-    void render(TileMap);
-    void showText();
-    void showInventory(int inventory[6][2]);
+    void render();
+    void showText() const;
+    void showInventory(int inventory[6][2]) const;
 
 };
 

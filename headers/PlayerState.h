@@ -8,6 +8,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <memory>
+
 using namespace std;
 using namespace sf;
 
@@ -16,7 +18,7 @@ class Player;
 class PlayerState {
 public:
     virtual ~PlayerState();
-    virtual PlayerState* handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key);
+    virtual std::shared_ptr<PlayerState> handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key);
 };
 
 

@@ -1,5 +1,5 @@
-#include "googletest-master/googletest/include/gtest/gtest.h"
-#include "../headers/Player.h"
+#include "lib/googletest-master/googletest/include/gtest/gtest.h"
+#include "Player.h"
 
 
 TEST(Player, CheckConstructor){

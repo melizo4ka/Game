@@ -5,9 +5,8 @@ class Plant{
 public:
     int seedValue;
     int grownValue;
-    int daysToHarvest;
 
-    Plant(int seedValue, int grownValue, int daysToHarvest);
+    Plant(int seedValue, int grownValue);
     virtual ~Plant();
 
 };

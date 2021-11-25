@@ -1,7 +1,7 @@
 #include <ShopMenu.h>
 #include "ShoppingState.h"
 
-PlayerState* ShoppingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+std::shared_ptr<PlayerState> ShoppingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     sf::RenderWindow menuWindow(sf::VideoMode(300, 600), "Shop Menu");
     ShopMenu shopMenu(menuWindow.getSize().x, menuWindow.getSize().y);
     while (menuWindow.isOpen()){
@@ -31,7 +31,7 @@ PlayerState* ShoppingState::handleInput(Player& pl, int map[], int mapWidth, int
                                         pl.inventory[1][1] = pl.inventory[1][1] - 1;
                                     }
                                     break;
-                                case 2: // buy pot.seed
+                                case 2: // buy potato seed
                                     if(pl.money >= pl.potato.seedValue){
                                         pl.money = pl.money - pl.potato.seedValue;
                                         pl.inventory[2][1] = pl.inventory[2][1] + 1;
@@ -43,7 +43,7 @@ PlayerState* ShoppingState::handleInput(Player& pl, int map[], int mapWidth, int
                                         pl.inventory[3][1] = pl.inventory[3][1] - 1;
                                     }
                                     break;
-                                case 4: // buy apple.seed
+                                case 4: // buy apple seed
                                     if(pl.money >= pl.apple.seedValue){
                                         pl.money = pl.money - pl.apple.seedValue;
                                         pl.inventory[4][1] = pl.inventory[4][1] + 1;
@@ -70,5 +70,5 @@ PlayerState* ShoppingState::handleInput(Player& pl, int map[], int mapWidth, int
     }
     pl.consumeEnergy();
     pl.sprite.setPosition(pl.startingPosX, pl.startingPosY);
-    return new StandingState();
+    return std::shared_ptr<PlayerState>(new StandingState());
 }

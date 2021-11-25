@@ -1,6 +1,6 @@
 #include "FishingState.h"
 
-PlayerState* FishingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+std::shared_ptr<PlayerState> FishingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     if(pl.energy > 0){
         Vector2f position = pl.sprite.getPosition();
         Pond pond(position.x, position.y);
@@ -16,8 +16,6 @@ PlayerState* FishingState::handleInput(Player& pl, int map[], int mapWidth, int 
             pl.inventory[0][1] = pl.inventory[0][1]+1;
         }
         pl.consumeEnergy();
-        return new StandingState();
     }
-    else
-        return new StandingState();
+    return std::shared_ptr<PlayerState>(new StandingState());
 }

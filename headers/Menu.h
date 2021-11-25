@@ -11,13 +11,13 @@ private:
     sf::Text menu[MAX_ITEMS];
 
 public:
-    Menu(float width, float height);
+    Menu(float height);
     ~Menu();
 
     void draw(sf::RenderWindow &window);
     void moveUp();
     void moveDown();
-    int getPressedItem();
+    int getPressedItem() const;
 
 };
 

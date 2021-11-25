@@ -4,41 +4,37 @@
 #include <HarvestingState.h>
 #include "StandingState.h"
 
-PlayerState* StandingState::handleInput(Player &pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+std::shared_ptr<PlayerState> StandingState::handleInput(Player &pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     FloatRect playerBounds = pl.sprite.getGlobalBounds();
-    int squareType = checkEnteredSquare(playerBounds.left, playerBounds.top+playerBounds.height, map, mapWidth, mapHeight, px);
+    int squareType = checkEnteredSquare(playerBounds.left, playerBounds.top+playerBounds.height, map, mapWidth, px);
 
-    if(squareType == 5){
-        return new ShoppingState();
-    }
+    if(squareType == 5)
+        return std::shared_ptr<PlayerState>(new ShoppingState());
 
-    else if(squareType == 6){
-        return new SleepingState();
-    }
+    else if(squareType == 6)
+        return std::shared_ptr<PlayerState>(new SleepingState());
 
-    else if(key == Keyboard::W || key == Keyboard::A || key == Keyboard::S || key == Keyboard::D )
-        return new WalkingState();
+    else if(key == Keyboard::W || key == Keyboard::A || key == Keyboard::S || key == Keyboard::D)
+        return std::shared_ptr<PlayerState>(new WalkingState());
 
     else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.pondClicked){
         pl.pondClicked = false;
-        return new FishingState();
+        return std::shared_ptr<PlayerState>(new FishingState());
     }
 
     else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.blankClicked && squareType == 2){
         pl.blankClicked = false;
-        return new PlantingState();
+        return std::shared_ptr<PlayerState>(new PlantingState());
     }
 
-    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.harvestableClicked && (squareType == 9||squareType == 13)){
-        pl.harvestableClicked = false;
-        return new HarvestingState();
-    }
+    else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && pl.harvestableClicked && (squareType == 9||squareType == 13))
+        return std::shared_ptr<PlayerState>(new HarvestingState());
 
     else
-        return new StandingState();
+        return std::shared_ptr<PlayerState>(new StandingState());
 }
 
-int StandingState::checkEnteredSquare(float x, float y, int map[], int mapWidth, int mapHeight, int px) {
+int StandingState::checkEnteredSquare(float x, float y, const int map[], int mapWidth, int px) {
     int mapX = x / px;
     int mapY = y / px;
     int newSquare = map[mapX + mapY * mapWidth];

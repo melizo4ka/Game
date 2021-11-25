@@ -1,10 +1,13 @@
+#include <iostream>
 #include "Menu.h"
 
-Menu::Menu(float width, float height) {
-    if(!font.loadFromFile("../assets/arial.ttf")){
-        //error
+Menu::Menu(float height) {
+    try{
+        font.loadFromFile("../assets/arial.ttf");
     }
-
+    catch (...){
+        std::cerr << "Couldn't find Arial Font" << std::endl;
+    }
     for(int i = 0; i < MAX_ITEMS; i++){
         menu[i].setFont(font);
         menu[i].setFillColor(sf::Color::White);
@@ -24,8 +27,8 @@ Menu::~Menu() {
 }
 
 void Menu::draw(sf::RenderWindow &window) {
-    for(int i = 0; i < MAX_ITEMS; i++){
-        window.draw(menu[i]);
+    for(const auto & i : menu){
+        window.draw(i);
     }
 }
 
@@ -45,6 +48,6 @@ void Menu::moveDown() {
     }
 }
 
-int Menu::getPressedItem(){
+int Menu::getPressedItem() const{
     return selectedItem;
 }

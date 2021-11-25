@@ -1,7 +1,6 @@
 #ifndef GAME_WALKINGSTATE_H
 #define GAME_WALKINGSTATE_H
 
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -17,9 +16,9 @@ class WalkingState
         : public PlayerState{
 public:
     float movementSpeed = 5.f;
-    PlayerState* handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key);
+    std::shared_ptr<PlayerState> handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) override;
 
-    bool checkCollision(float x, float y, int map[], int mapWidth, int px);
+    static bool checkCollision(float x, float y, const int map[], int mapWidth, int px);
 
 };
 

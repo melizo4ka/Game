@@ -7,6 +7,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <memory>
 #include "PlayerState.h"
 #include "Plant.h"
 #include "Fish.h"
@@ -29,14 +30,14 @@ public:
     int startingPosY = 128;
     int maxEnergy = 30;
 
-    Plant potato = Plant(10, 50, 2);
-    Plant apple = Plant(80, 800, 3);
+    Plant potato = Plant(10, 50);
+    Plant apple = Plant(80, 800);
     Fish salmon = Fish(500);
     Fish herring = Fish(200);
 
     Sprite sprite;
     Texture standingTexture;
-    PlayerState* state_;
+    std::shared_ptr<PlayerState> state_;
     int inventory[6][2]; //items (salmon, herring, p seed, p plant, s seed, s plant) and quantity
 
     bool pondClicked = false;
@@ -47,13 +48,13 @@ public:
     virtual ~Player();
     void initInventory();
 
-    void updateWindowBoundsCollision(const RenderTarget* target);
-    void update(const RenderWindow* target, int map[], int mapWidth, int mapHeight, int px);
-    void render(RenderWindow* window);
+    void updateWindowBoundsCollision(std::shared_ptr<RenderWindow> target);
+    void update(std::shared_ptr<RenderWindow> target, int map[], int mapWidth, int mapHeight, int px);
+    void render(std::shared_ptr<RenderWindow> window);
 
     virtual void handleInput(int map[], int mapWidth, int mapHeight, int px);
-    Keyboard::Key getInput();
-    void getClick(int map[], int mapWidth, int mapHeight, int px, const RenderWindow* window);
+    static Keyboard::Key getInput();
+    void getClick(const int map[], int mapWidth, int mapHeight, int px, std::shared_ptr<RenderWindow> window);
 
     void consumeEnergy();
 };

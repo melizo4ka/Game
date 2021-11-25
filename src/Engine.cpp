@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include <memory>
+
 void Engine::initVariables(unsigned WindowWidth, unsigned WindowHeight, unsigned width, unsigned height, unsigned pixels ) {
     this->WindowWidth = WindowWidth;
     this->WindowHeight = WindowHeight;
@@ -10,7 +12,7 @@ void Engine::initVariables(unsigned WindowWidth, unsigned WindowHeight, unsigned
 }
 void Engine::initWindow() {
     this->videoMode = VideoMode(WindowWidth, WindowHeight);
-    this->window = new RenderWindow(this->videoMode, "Farm", Style::Close | Style::Titlebar);
+    this->window = std::make_shared<RenderWindow> (this->videoMode, "Farm", Style::Close | Style::Titlebar);
     this->window->setFramerateLimit(60);
 }
 
@@ -20,29 +22,29 @@ Engine::Engine() {
 }
 
 Engine::~Engine(){
-    delete this->window;
+
 }
 
-int* Engine::readMapFile(int level[]) {
+std::shared_ptr<int> Engine::readMapFile (int map[]) {
     ifstream myfile ("../assets/map.txt");
-    if (myfile.is_open())
+    try {
+        myfile.is_open();
+    }
+    catch(...){
+        std::cerr << "Couldn't find Map File" << std::endl;
+    }
+    while (! myfile.eof() )
     {
-        while (! myfile.eof() )
-        {
-            char piece;
-            int symbol;
-            for(int i = 0; i < 129; i++){
-                myfile >> piece;
-                symbol = piece-'0';
-                level[i] = symbol;
-            }
+        char piece;
+        int symbol;
+        for(int i = 0; i < 129; i++){
+            myfile >> piece;
+            symbol = piece-'0';
+            map[i] = symbol;
         }
-        myfile.close();
     }
-    else {
-        cout << "Can't find input file " << endl;
-    }
-    return level;
+    myfile.close();
+    return std::shared_ptr<int> (map);
 }
 
 bool Engine::running() const {
@@ -71,18 +73,20 @@ void Engine::pollEvents(){
 }
 
 void Engine::update() {
-    if(!tilemap.load("assets/tileset.png", sf::Vector2u(32, 32), level, 16, 8))
-    {
-        // error...
+    try{
+        tilemap.load("assets/tileset.png", sf::Vector2u(32, 32), this->map, 16, 8);
+    }
+    catch (...){
+        std::cerr << "Couldn't load the Tile Map" << std::endl;
     }
     this->pollEvents();
     this->player.update(this->window, this->map, this->mapWidth, this->mapHeight, this->pixels);
-    render(tilemap);
+    render();
 }
 
-void Engine::render(TileMap) {
+void Engine::render() {
     this->window->clear();
-    this->window->draw(tilemap);//<---
+    this->window->draw(tilemap);
     this->showText();
     this->player.render(this->window);
     if(iPressed){
@@ -91,11 +95,13 @@ void Engine::render(TileMap) {
     this->window->display();
 }
 
-void Engine::showText() {
+void Engine::showText() const {
     sf::Font font;
-    if (!font.loadFromFile("../assets/arial.ttf"))
-    {
-        // error...
+    try{
+        font.loadFromFile("../assets/arial.ttf");
+    }
+    catch (...){
+        std::cerr << "Couldn't find Arial Font" << std::endl;
     }
     sf::Text text;
     text.setFont(font);
@@ -106,26 +112,31 @@ void Engine::showText() {
     window->draw(text);
 }
 
-void Engine::showInventory(int inventory[6][2]){
+void Engine::showInventory(int inventory[6][2]) const{
     sf::Texture texture;
-    if (!texture.loadFromFile("../assets/itemset.png"))
-    {
-        // error...
+    try{
+        texture.loadFromFile("../assets/itemset.png");
+    }
+    catch (...){
+        std::cerr << "Couldn't find Inventory texture" << std::endl;
     }
     sf::Sprite sprite;
     sprite.setTexture(texture);
     window->draw(sprite);
 
     sf::Font font;
-    if (!font.loadFromFile("../assets/arial.ttf"))
-    {
-        // error...
+    try{
+        font.loadFromFile("../assets/arial.ttf");
     }
+    catch (...){
+        std::cerr << "Couldn't find Arial Font" << std::endl;
+    }
+
     sf::Text text;
     text.setFont(font);
-    text.setString("Salmon " + to_string(inventory[0][1])+ "; Herring: "+to_string(inventory[1][1])+
-    "; Potato S. : "+to_string(inventory[2][1])+"; Potatoes: "+to_string(inventory[3][1])+
-    "; Apple S.: "+to_string(inventory[4][1])+"; Apples: "+to_string(inventory[5][1]));
+    text.setString("Salmon " + to_string(inventory[0][1])+ "; Herring: "+ to_string(inventory[1][1])+
+    "; Potato S. : "+ to_string(inventory[2][1])+"; Potatoes: "+ to_string(inventory[3][1])+
+    "; Apple S.: "+ to_string(inventory[4][1])+"; Apples: "+ to_string(inventory[5][1]));
     text.setCharacterSize(12);
     text.setFillColor(sf::Color::Black);
     window->draw(text);

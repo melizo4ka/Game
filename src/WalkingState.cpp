@@ -1,6 +1,6 @@
 #include "WalkingState.h"
 
-PlayerState* WalkingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+std::shared_ptr<PlayerState> WalkingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     FloatRect playerBounds = pl.sprite.getGlobalBounds();
     //left
     if(key == Keyboard::A){
@@ -28,11 +28,11 @@ PlayerState* WalkingState::handleInput(Player& pl, int map[], int mapWidth, int 
         if(move1 && move2)
             pl.sprite.move(0.f, this->movementSpeed);
     }
-    return new StandingState();
+    return std::shared_ptr<PlayerState>(new StandingState());
 }
 
 
-bool WalkingState::checkCollision(float x, float y, int map[], int mapWidth, int px) {
+bool WalkingState::checkCollision(float x, float y, const int map[], int mapWidth, int px) {
     int mapX = x / px;
     int mapY = y / px;
     int newSquare = map[mapX + mapY * mapWidth];

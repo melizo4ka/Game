@@ -1,11 +1,10 @@
 #include <Menu.h>
 #include "Engine.h"
-#include "TileMap.h"
 
 int main() {
 
     sf::RenderWindow window(sf::VideoMode(400, 400), "Menu");
-    Menu menu(window.getSize().x, window.getSize().y);
+    Menu menu(window.getSize().y);
 
     while (window.isOpen()){
         sf::Event event;

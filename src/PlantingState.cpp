@@ -1,6 +1,6 @@
 #include "PlantingState.h"
 
-PlayerState* PlantingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
+std::shared_ptr<PlayerState> PlantingState::handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) {
     if(pl.energy > 0){
         FloatRect playerBounds = pl.sprite.getGlobalBounds();
         int tileCoord = getTile(playerBounds.left, playerBounds.top+playerBounds.height, map, mapWidth, px);
@@ -9,16 +9,17 @@ PlayerState* PlantingState::handleInput(Player& pl, int map[], int mapWidth, int
                 pl.inventory[4][1] = pl.inventory[4][1] - 1;
                 //change square
                 map[tileCoord] = 10;
+                pl.consumeEnergy();
             }
             else if(pl.inventory[2][1] > 0){ //check for potato seed
                 pl.inventory[2][1] = pl.inventory[2][1] - 1;
                 //change square
                 map[tileCoord] = 7;
+                pl.consumeEnergy();
             }
         }
-        pl.consumeEnergy();
     }
-    return new StandingState();
+    return std::shared_ptr<PlayerState>(new StandingState());
 }
 
 int PlantingState::getTile(float x, float y, int map[], int mapWidth, int px) {
