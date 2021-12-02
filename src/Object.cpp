@@ -5,10 +5,6 @@ Object::Object(float posX, float posY) {
     this->sprite.setPosition(posX, posY);
 }
 
-Object::~Object() {
-
-}
-
 void Object::initVariables(float posX, float posY) {
     //position top left corner
     this->posX = posX;

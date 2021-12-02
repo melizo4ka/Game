@@ -9,7 +9,7 @@ public:
     int caughtValue;
 
     Fish(int caughtValue);
-    virtual ~Fish();
+    virtual ~Fish() {};
 
 };
 

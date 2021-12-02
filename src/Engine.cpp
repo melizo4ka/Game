@@ -21,9 +21,7 @@ Engine::Engine() {
     this->initWindow();
 }
 
-Engine::~Engine(){
-
-}
+Engine::~Engine()= default;
 
 std::shared_ptr<int> Engine::readMapFile (int map[]) {
     ifstream myfile ("../assets/map.txt");
@@ -53,21 +51,17 @@ bool Engine::running() const {
 
 void Engine::pollEvents(){
     while(this->window->pollEvent(this->sfmlEvent)){
-        switch (this->sfmlEvent.type){
-            //window closing
-            case Event::Closed:
+        //window closing
+        if(this->sfmlEvent.type == Event::Closed)
+            this->window->close();
+        if(this->sfmlEvent.type == Event::KeyPressed){
+            if(this->sfmlEvent.key.code == Keyboard::Escape)
                 this->window->close();
-                break;
-            case Event::KeyPressed:
-                if(this->sfmlEvent.key.code == Keyboard::Escape)
-                    this->window->close();
-
-                // display inventory on request with I
-                else if(this->sfmlEvent.key.code == Keyboard::I && !iPressed)
-                    iPressed = true;
-                else if(this->sfmlEvent.key.code == Keyboard::I && iPressed)
-                    iPressed = false;
-                break;
+            // display inventory on request with I
+            else if(this->sfmlEvent.key.code == Keyboard::I && !iPressed)
+                this->iPressed = true;
+            else if(this->sfmlEvent.key.code == Keyboard::I && iPressed)
+                this->iPressed = false;
         }
     }
 }
@@ -80,7 +74,7 @@ void Engine::update() {
         std::cerr << "Couldn't load the Tile Map" << std::endl;
     }
     this->pollEvents();
-    this->player.update(this->window, this->map, this->mapWidth, this->mapHeight, this->pixels);
+    this->player.update(window, map, mapWidth, mapHeight, pixels);
     render();
 }
 

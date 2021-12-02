@@ -12,7 +12,7 @@ private:
 
 public:
     House(float posX, float posY);
-    virtual ~House();
+    virtual ~House() {};
 
 };
 

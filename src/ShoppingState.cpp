@@ -72,3 +72,7 @@ std::shared_ptr<PlayerState> ShoppingState::handleInput(Player& pl, int map[], i
     pl.sprite.setPosition(pl.startingPosX, pl.startingPosY);
     return std::shared_ptr<PlayerState>(new StandingState());
 }
+
+ShoppingState::~ShoppingState() {
+
+}

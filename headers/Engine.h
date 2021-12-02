@@ -28,20 +28,23 @@ using namespace std;
 
 class Engine {
 private:
+    VideoMode videoMode;
     unsigned WindowWidth;
     unsigned WindowHeight;
-
-    VideoMode videoMode;
-    Event sfmlEvent;
 
     int mapWidth;
     int mapHeight;
     int pixels;
-
     int map[128];
     std::shared_ptr<int> level;
 
-    Player player;
+    Event sfmlEvent;
+
+    int playerStartX = 128;
+    int playerStartY = 128;
+    float playerSpeed = 7.f;
+    Player player = Player(playerStartX, playerStartY, playerSpeed);
+
     bool iPressed = false;
 
     void initVariables(unsigned WindowWidth, unsigned WindowHeight,unsigned width, unsigned height, unsigned pixels);

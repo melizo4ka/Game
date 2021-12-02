@@ -12,7 +12,7 @@ private:
 
 public:
     Pond(float posX, float posY);
-    virtual ~Pond();
+    virtual ~Pond() {};
 
     static int fishRandom();
 };

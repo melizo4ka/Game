@@ -3,7 +3,3 @@
 Shop::Shop(float posX, float posY)
         : Object(posX, posY){
 }
-
-Shop::~Shop() {
-
-}

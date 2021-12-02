@@ -1,27 +1,23 @@
 #include "Player.h"
 #include <iostream>
 #include "PlayerState.h"
-#include "StandingState.h"
 #include <windows.h>
 #include <memory>
 
 
-Player::Player(int x, int y) {
+Player::Player(int x, int y, float speed) {
     this->initGraphics(x, y);
-    this->initVariables();
+    this->initVariables(speed);
     this->state_ = std::shared_ptr<PlayerState>(new StandingState());
     this->initInventory();
 }
 
-Player::~Player(){
-
-}
-
-void Player::initVariables() {
+void Player::initVariables(float speed) {
     this->setName();
     this->money = 1000;
     this->energy = maxEnergy;
     this->day = 1;
+    this->movementSpeed = speed;
 }
 
 void Player::initGraphics(int x, int y) {
@@ -45,8 +41,9 @@ void Player::initInventory() {
 }
 
 void Player::setName(){
-    cout << "Insert your Name here: \n";
-    cin >> namePlayer;
+    //cout << "Insert your Name here: \n";
+    //cin >> namePlayer;
+    namePlayer = "Eli";
 }
 
 void Player::updateWindowBoundsCollision(std::shared_ptr<RenderWindow> target) {

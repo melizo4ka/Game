@@ -23,3 +23,7 @@ std::shared_ptr<PlayerState> SleepingState::handleInput(Player& pl, int map[], i
     return std::shared_ptr<PlayerState>(new StandingState());
 }
 
+SleepingState::~SleepingState() {
+
+}
+

@@ -19,3 +19,7 @@ std::shared_ptr<PlayerState> FishingState::handleInput(Player& pl, int map[], in
     }
     return std::shared_ptr<PlayerState>(new StandingState());
 }
+
+FishingState::~FishingState() {
+
+}

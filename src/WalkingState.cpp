@@ -4,29 +4,29 @@ std::shared_ptr<PlayerState> WalkingState::handleInput(Player& pl, int map[], in
     FloatRect playerBounds = pl.sprite.getGlobalBounds();
     //left
     if(key == Keyboard::A){
-        bool move1 = checkCollision(playerBounds.left - this->movementSpeed, playerBounds.top + playerBounds.height, map, mapWidth, px);//bottom check
+        bool move1 = checkCollision(playerBounds.left - pl.movementSpeed, playerBounds.top + playerBounds.height, map, mapWidth, px);//bottom check
         if(move1)
-            pl.sprite.move(-this->movementSpeed, 0.f);
+            pl.sprite.move(-pl.movementSpeed, 0.f);
     }
     //right
     else if(key == Keyboard::D){
-        bool move1 = checkCollision(playerBounds.left + playerBounds.width + this->movementSpeed, playerBounds.top + playerBounds.height, map, mapWidth, px);//bottom check
+        bool move1 = checkCollision(playerBounds.left + playerBounds.width + pl.movementSpeed, playerBounds.top + playerBounds.height, map, mapWidth, px);//bottom check
         if(move1)
-            pl.sprite.move(this->movementSpeed, 0.f);
+            pl.sprite.move(pl.movementSpeed, 0.f);
     }
     //up
     if(key == Keyboard::W){
-        bool move1 = checkCollision(playerBounds.left, playerBounds.top + playerBounds.height - this->movementSpeed, map, mapWidth, px);//left top check
-        bool move2 = checkCollision(playerBounds.left + playerBounds.width, playerBounds.top + playerBounds.height - this->movementSpeed, map, mapWidth, px);//right top check
+        bool move1 = checkCollision(playerBounds.left, playerBounds.top + playerBounds.height - pl.movementSpeed, map, mapWidth, px);//left top check
+        bool move2 = checkCollision(playerBounds.left + playerBounds.width, playerBounds.top + playerBounds.height - pl.movementSpeed, map, mapWidth, px);//right top check
         if(move1 && move2)
-            pl.sprite.move(0.f, -this->movementSpeed);
+            pl.sprite.move(0.f, -pl.movementSpeed);
     }
     //down
     else if(key== Keyboard::S) {
-        bool move1 = checkCollision(playerBounds.left, playerBounds.top + playerBounds.height + this->movementSpeed, map, mapWidth, px);//left bottom check
-        bool move2 = checkCollision(playerBounds.left + playerBounds.width,  playerBounds.top + playerBounds.height + this->movementSpeed, map, mapWidth, px);//right bottom check
+        bool move1 = checkCollision(playerBounds.left, playerBounds.top + playerBounds.height + pl.movementSpeed, map, mapWidth, px);//left bottom check
+        bool move2 = checkCollision(playerBounds.left + playerBounds.width,  playerBounds.top + playerBounds.height + pl.movementSpeed, map, mapWidth, px);//right bottom check
         if(move1 && move2)
-            pl.sprite.move(0.f, this->movementSpeed);
+            pl.sprite.move(0.f, pl.movementSpeed);
     }
     return std::shared_ptr<PlayerState>(new StandingState());
 }
@@ -41,4 +41,8 @@ bool WalkingState::checkCollision(float x, float y, const int map[], int mapWidt
     }
     else
         return true;
+}
+
+WalkingState::~WalkingState() {
+
 }

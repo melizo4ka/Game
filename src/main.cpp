@@ -28,7 +28,6 @@ int main() {
                                     window.close();
                                     //initialize game
                                     Engine engine;
-
                                     //game loop
                                     while(engine.running()){
                                         engine.update();

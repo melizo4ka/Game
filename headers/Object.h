@@ -18,7 +18,7 @@ protected:
 
 public:
     Object(float posX, float posY);
-    virtual ~Object();
+    virtual ~Object() {};
 };
 
 

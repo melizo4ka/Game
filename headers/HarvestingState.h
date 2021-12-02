@@ -8,7 +8,7 @@
 class HarvestingState
         : public PlayerState{
 public:
-
+    ~HarvestingState();
     std::shared_ptr<PlayerState> handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) override;
 
     int getTile(float x, float y, int map[], int mapWidth, int px);

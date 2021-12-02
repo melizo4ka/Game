@@ -10,7 +10,7 @@ private:
 
 public:
     Shop(float posX, float posY);
-    virtual ~Shop();
+    virtual ~Shop() {};
 
 };
 

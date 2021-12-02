@@ -15,7 +15,7 @@ using namespace sf;
 class WalkingState
         : public PlayerState{
 public:
-    float movementSpeed = 5.f;
+    ~WalkingState();
     std::shared_ptr<PlayerState> handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) override;
 
     static bool checkCollision(float x, float y, const int map[], int mapWidth, int px);

@@ -40,3 +40,7 @@ int StandingState::checkEnteredSquare(float x, float y, const int map[], int map
     int newSquare = map[mapX + mapY * mapWidth];
     return newSquare;
 }
+
+StandingState::~StandingState() {
+
+}

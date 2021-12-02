@@ -7,7 +7,7 @@ public:
     int grownValue;
 
     Plant(int seedValue, int grownValue);
-    virtual ~Plant();
+    virtual ~Plant() {};
 
 };
 

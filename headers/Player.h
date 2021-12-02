@@ -2,13 +2,14 @@
 #define GAME_PLAYER_H
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
+#include <../SFML/include/SFML/Graphics.hpp>
+#include <../SFML/include/SFML/System.hpp>
+#include <../SFML/include/SFML/Window.hpp>
+#include <../SFML/include/SFML/Audio.hpp>
+#include <../SFML/include/SFML/Network.hpp>
 #include <memory>
 #include "PlayerState.h"
+#include "StandingState.h"
 #include "Plant.h"
 #include "Fish.h"
 
@@ -17,7 +18,7 @@ using namespace std;
 
 class Player {
 private:
-    void initVariables();
+    void initVariables(float speed);
     void initGraphics(int x, int y);
     void setName();
 
@@ -29,6 +30,7 @@ public:
     int startingPosX = 128;
     int startingPosY = 128;
     int maxEnergy = 30;
+    float movementSpeed;
 
     Plant potato = Plant(10, 50);
     Plant apple = Plant(80, 800);
@@ -44,8 +46,8 @@ public:
     bool blankClicked = false;
     bool harvestableClicked = false;
 
-    Player(int x = 128, int y = 128);
-    virtual ~Player();
+    explicit Player(int x, int y, float speed);
+    virtual ~Player() {};
     void initInventory();
 
     void updateWindowBoundsCollision(std::shared_ptr<RenderWindow> target);

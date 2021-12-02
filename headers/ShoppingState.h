@@ -18,7 +18,7 @@ using namespace sf;
 class ShoppingState
         : public PlayerState{
 public:
-
+    ~ShoppingState();
     std::shared_ptr<PlayerState> handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) override;
 
 

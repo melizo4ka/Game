@@ -28,3 +28,7 @@ int PlantingState::getTile(float x, float y, int map[], int mapWidth, int px) {
     int newTile = mapX + mapY * mapWidth;
     return newTile;
 }
+
+PlantingState::~PlantingState() {
+
+}

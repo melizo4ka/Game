@@ -8,7 +8,7 @@
 class PlantingState
         : public PlayerState{
 public:
-
+    ~PlantingState();
     std::shared_ptr<PlayerState> handleInput(Player& pl, int map[], int mapWidth, int mapHeight, int px, Keyboard::Key key) override;
 
     static int getTile(float x, float y, int map[], int mapWidth, int px);
