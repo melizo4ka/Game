@@ -33,12 +33,8 @@ protected:
 TEST_F(PlayerSuite, TestMove) {
     std::shared_ptr<RenderWindow> window = std::make_shared<RenderWindow> (videoMode, "TestMove", Style::Close | Style::Titlebar);
     while(window->isOpen()){
-        //update
         tilemap.load("../assets/tileset.png", sf::Vector2u(32, 32), map, 6, 6);
-
-        //pollEvent
         while(window->pollEvent(sfmlEvent)){
-            //window closing
             if(sfmlEvent.type == Event::Closed)
                 window->close();
             if(sfmlEvent.type == Event::KeyPressed){
@@ -47,12 +43,9 @@ TEST_F(PlayerSuite, TestMove) {
             }
         }
         player.update(window, map, mapWidth, mapHeight, pixels);
-
-        //render
         window->clear();
         window->draw(tilemap);
         player.render(window);
-
         window->display();
     }
     //checks that the position is different from the starting one
@@ -62,16 +55,12 @@ TEST_F(PlayerSuite, TestMove) {
 
 }
 
-//if collision with window bound then doesnt go further
+//if collision with window bound then doesn't go further
 TEST_F(PlayerSuite, TestBounds) {
     std::shared_ptr<RenderWindow> window = std::make_shared<RenderWindow> (videoMode, "TestBounds", Style::Close | Style::Titlebar);
     while(window->isOpen()){
-        //update
         tilemap.load("../assets/tileset.png", sf::Vector2u(32, 32), map, 6, 6);
-
-        //pollEvent
         while(window->pollEvent(sfmlEvent)){
-            //window closing
             if(sfmlEvent.type == Event::Closed)
                 window->close();
             if(sfmlEvent.type == Event::KeyPressed){
@@ -80,8 +69,6 @@ TEST_F(PlayerSuite, TestBounds) {
             }
         }
         player.update(window, map, mapWidth, mapHeight, pixels);
-
-        //render
         window->clear();
         window->draw(tilemap);
         player.render(window);
@@ -93,7 +80,7 @@ TEST_F(PlayerSuite, TestBounds) {
 
 }
 
-//when in shop and choose buy 1 potato seed - #2 in inventory
+//when in shop and choose buy 1 potato seed ( #2 in inventory )
 TEST_F(PlayerSuite, TestInventory) {
     std::shared_ptr<RenderWindow> window = std::make_shared<RenderWindow> (videoMode, "TestInventory", Style::Close | Style::Titlebar);
 
@@ -101,12 +88,8 @@ TEST_F(PlayerSuite, TestInventory) {
     int startMoney = player.money;
 
     while(window->isOpen()){
-        //update
         tilemap.load("../assets/tileset.png", sf::Vector2u(32, 32), map, 6, 6);
-
-        //pollEvent
         while(window->pollEvent(sfmlEvent)){
-            //window closing
             if(sfmlEvent.type == Event::Closed)
                 window->close();
             if(sfmlEvent.type == Event::KeyPressed){
@@ -115,16 +98,14 @@ TEST_F(PlayerSuite, TestInventory) {
             }
         }
         player.update(window, map, mapWidth, mapHeight, pixels);
-
-        //render
         window->clear();
         window->draw(tilemap);
         player.render(window);
         window->display();
     }
-    //consume money
+    //consumed money
     ASSERT_EQ(startMoney - player.potato.seedValue, player.money);
 
-    //add to the inventory
+    //added to the inventory
     ASSERT_EQ(player.inventory[2][1], startPotSeed + 1);
 }
